@@ -1,13 +1,17 @@
 {
     "name": "yoomoney/yookassa-payout-sdk-php",
+    "description": "You can automate payouts by integrating with YooMoney for Business via the protocol of mass payouts.",
+    "type": "library",
     "license": "MIT",
+    "homepage": "https://yookassa.ru/docs/payouts",
+    "keywords": ["yoomoney", "yookassa", "payout", "api", "sdk"],
     "authors": [
         {
             "name": "YooMoney",
             "email": "cms@yoomoney.ru"
         }
     ],
-    "version": "2.0.0",
+    "version": "2.0.1",
     "require": {
         "php": ">=5.6.0",
         "ext-curl": "*",
