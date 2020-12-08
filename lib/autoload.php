@@ -29,9 +29,9 @@ define('YOOKASSA_PAYOUT_PSR_LOG_PATH', dirname(__FILE__).'/../vendor/psr/log/Psr
 
 function yooKassaPayoutLoadClass($className)
 {
-    if (strncmp('YooKassaPayout', $className, 20) === 0) {
+    if (strncmp('YooKassaPayout', $className, 14) === 0) {
         $path   = YOOKASSA_PAYOUT_SDK_ROOT_PATH;
-        $length = 20;
+        $length = 14;
     } elseif (strncmp('Psr\Log', $className, 7) === 0) {
         $path   = YOOKASSA_PAYOUT_PSR_LOG_PATH;
         $length = 7;
