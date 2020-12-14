@@ -54,7 +54,7 @@ class OpenSSL
     {
         $cmd     = 'openssl smime -sign -signer ' . $keychain->getPublicCert()
             . ' -inkey ' . $keychain->getPrivateKey()
-            . ' -passin pass:' . $keychain->getKeyPassword()
+            . ' -passin pass:\'' . $keychain->getKeyPassword() . '\''
             . ' -nochain -nocerts -outform PEM -nodetach';
 
         return self::executeCMD($cmd, $data);
