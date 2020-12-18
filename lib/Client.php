@@ -61,7 +61,7 @@ use YooKassaPayout\Request\TestDepositionRequest;
  */
 class Client extends CurlClient
 {
-    const SDK_VERSION = '2.0.1';
+    const SDK_VERSION = '2.0.2';
 
     const PAYOUT_REQUEST_ENDPOINT  = "https://calypso.yamoney.ru:9094/";
     const SYNONYM_REQUEST_ENDPOINT = "https://paymentcard.yamoney.ru/";
