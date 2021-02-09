@@ -70,7 +70,7 @@ class OpenSSL
     public static function decryptPKCS7($data, $CAcert = null)
     {
         $CAcert = empty($CAcert) ? self::YMCert : $CAcert;
-        $cmd = 'openssl smime -verify -inform PEM -nointern -certfile ' . $CAcert . ' -CAfile ' . $CAcert;
+        $cmd = 'openssl smime -verify -noverify -inform PEM -nointern -certfile ' . $CAcert . ' -CAfile ' . $CAcert;
 
         return self::executeCMD($cmd, $data);
     }
