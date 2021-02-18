@@ -44,7 +44,7 @@ class CurlClient extends BaseClient
     /**
      * @var string
      */
-    protected $requestUrl = 'https://calypso.yamoney.ru:9094/';
+    protected $requestUrl = 'https://payouts.yookassa.ru:9094/';
 
     /**
      * @var resource
