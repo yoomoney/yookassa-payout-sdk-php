@@ -186,7 +186,7 @@ class BankAccountRecipient extends BaseRecipient
 
         $accountRecipient = [
             'CustAccount'       => $this->getCustAccount(),
-            'BankBik'           => $this->getBankBIK(),
+            'BankBIK'           => $this->getBankBIK(),
             'payment_purpose'   => $this->getPaymentPurpose(),
             'pdr_docIssueYear'  => $date->getYear(),
             'pdr_docIssueMonth' => $date->getMonth(),
