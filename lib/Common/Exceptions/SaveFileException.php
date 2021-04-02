@@ -24,8 +24,15 @@
  * THE SOFTWARE.
  */
 
-use YooKassaPayout\Client\ConsoleClient;
+namespace YooKassaPayout\Common\Exceptions;
 
-require_once __DIR__ . '/../autoload.php';
+use Exception;
 
-new ConsoleClient($argv);
+/**
+ * Class SaveFileException
+ * @package YooKassaPayout\Common\Exceptions
+ */
+class SaveFileException extends Exception
+{
+
+}

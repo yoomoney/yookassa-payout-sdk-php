@@ -27,10 +27,10 @@
 namespace YooKassaPayout\Common\Helpers;
 
 
-use Exception;
 use YooKassaPayout\Common\Exceptions\EmptyPropertyValueException;
 use YooKassaPayout\Common\Exceptions\InvalidPropertyValueTypeException;
 use YooKassaPayout\Common\Exceptions\OpenSSLException;
+use YooKassaPayout\Common\Exceptions\SaveFileException;
 use YooKassaPayout\Model\Organization;
 
 /**
@@ -173,20 +173,27 @@ class GeneratorCsr
     }
 
     /**
+     * @param null $privateKeyPath
      * @return string|string[]
      * @throws OpenSSLException
-     * @throws Exception
+     * @throws SaveFileException
      */
-    public function generate()
+    public function generate($privateKeyPath=null)
     {
-        $this->privateKey = openssl_pkey_new($this->config);
+        if (!empty($privateKeyPath) && is_file($privateKeyPath)) {
+            $this->privateKey = openssl_get_privatekey(file_get_contents($privateKeyPath), $this->privateKeyPassword);
+        } else {
+            $this->privateKey = openssl_pkey_new($this->config);
+        }
 
         if ($this->privateKey === false) {
             throw new OpenSSLException(openssl_error_string());
         }
 
-        openssl_pkey_export($this->privateKey, $privateKey, $this->privateKeyPassword);
-        $this->saveFile(self::OUTPUT_PRIVATE_KEY_FILENAME, $privateKey);
+        if (empty($privateKeyPath)) {
+            openssl_pkey_export($this->privateKey, $privateKey, $this->privateKeyPassword);
+            $this->saveFile(self::OUTPUT_PRIVATE_KEY_FILENAME, $privateKey);
+        }
 
         $dn = $this->organizationInfo->toArray();
 
@@ -198,7 +205,7 @@ class GeneratorCsr
         openssl_csr_export($this->csrRequest, $requestOut, false);
 
         $requestOut = str_replace("\t", "", $requestOut);
-        preg_match('"Signature Algorithm\: (.*)-----BEGIN"ims', $requestOut, $sign);
+        preg_match('"Signature Algorithm: (.*)-----BEGIN"ims', $requestOut, $sign);
         if ($sign) {
             $sign = $sign[1];
             $a    = explode("\n", $sign);
@@ -214,17 +221,20 @@ class GeneratorCsr
     /**
      * @param $fileName
      * @param $content
-     * @throws Exception
+     * @throws SaveFileException
      */
     protected function saveFile($fileName, $content)
     {
         ob_start();
+        if (!is_dir($this->output)) {
+            mkdir($this->output, 0770, true);
+        }
         $result = file_put_contents($this->output . '/' . $fileName, $content);
         $errors = ob_get_contents();
         ob_end_clean();
 
         if ($result === false) {
-            throw new Exception("Errors: " . $errors);
+            throw new SaveFileException("Errors: " . $errors);
         }
     }
 }
