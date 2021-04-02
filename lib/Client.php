@@ -27,15 +27,20 @@
 
 namespace YooKassaPayout;
 
-use Exception;
 use YooKassaPayout\Client\CurlClient;
+use YooKassaPayout\Common\Exceptions\ApiConnectionException;
+use YooKassaPayout\Common\Exceptions\ApiException;
 use YooKassaPayout\Common\Exceptions\AuthorizeException;
+use YooKassaPayout\Common\Exceptions\ExtensionNotFoundException;
 use YooKassaPayout\Common\Exceptions\OpenSSLException;
+use YooKassaPayout\Common\Exceptions\SaveFileException;
+use YooKassaPayout\Common\Exceptions\XmlException;
 use YooKassaPayout\Common\Helpers\GeneratorCsr;
 use YooKassaPayout\Common\HttpVerb;
 use YooKassaPayout\Common\ResponseObject;
 use YooKassaPayout\Common\ResponseSynonymCard;
 use YooKassaPayout\Model\FormatType;
+use YooKassaPayout\Model\Organization;
 use YooKassaPayout\Request\AbstractDepositionRequest;
 use YooKassaPayout\Request\AbstractRequest;
 use YooKassaPayout\Request\BalanceRequest;
@@ -61,7 +66,7 @@ use YooKassaPayout\Request\TestDepositionRequest;
  */
 class Client extends CurlClient
 {
-    const SDK_VERSION = '2.1.1';
+    const SDK_VERSION = '2.2.0';
 
     const PAYOUT_REQUEST_ENDPOINT  = "https://payouts.yookassa.ru:9094/";
     const SYNONYM_REQUEST_ENDPOINT = "https://paymentcard.yoomoney.ru/";
@@ -91,11 +96,12 @@ class Client extends CurlClient
      * @param AbstractDepositionRequest|array $request
      * @param string|int $clientOrderId
      * @return ResponseObject
-     * @throws Common\Exceptions\ApiConnectionException
-     * @throws Common\Exceptions\ApiException
-     * @throws Common\Exceptions\ExtensionNotFoundException
-     * @throws Common\Exceptions\OpenSSLException
-     * @throws Common\Exceptions\XmlException
+     * @throws AuthorizeException
+     * @throws ApiConnectionException
+     * @throws ApiException
+     * @throws ExtensionNotFoundException
+     * @throws XmlException
+     * @throws OpenSSLException
      */
     public function createDeposition($request, $clientOrderId = null)
     {
@@ -118,11 +124,11 @@ class Client extends CurlClient
      * Возвращает баланс
      *
      * @return ResponseObject
-     * @throws Common\Exceptions\ApiConnectionException
-     * @throws Common\Exceptions\ApiException
-     * @throws Common\Exceptions\ExtensionNotFoundException
-     * @throws Common\Exceptions\OpenSSLException
-     * @throws Common\Exceptions\XmlException
+     * @throws ApiConnectionException
+     * @throws ApiException
+     * @throws ExtensionNotFoundException
+     * @throws OpenSSLException
+     * @throws XmlException
      */
     public function getBalance()
     {
@@ -137,17 +143,26 @@ class Client extends CurlClient
      * Создает приватный ключ и запрос на сертификат для ЮMoney.
      * Возвращает подпись
      *
-     * @param $organizationInfo
-     * @param $outputDir
+     * @param array|Organization $organizationInfo
+     * @param string $outputDir
      * @param string $privateKeyPassword
+     * @param string|string[]|null $privateKeyPath
+     * @param array|null $config
      * @return string|string[]
-     * @throws Common\Exceptions\OpenSSLException
-     * @throws Exception
+     * @throws OpenSSLException
+     * @throws SaveFileException
      */
-    public function createCsr($organizationInfo, $outputDir = __DIR__, $privateKeyPassword = '')
+    public function createCsr($organizationInfo,
+                              $outputDir = __DIR__,
+                              $privateKeyPassword = '',
+                              $privateKeyPath = null,
+                              $config = null)
     {
         $generator = new GeneratorCsr($organizationInfo, $outputDir, $privateKeyPassword);
-        return $generator->generate();
+        if (!empty($config)) {
+            $generator->setConfig($config);
+        }
+        return $generator->generate($privateKeyPath);
     }
 
     /**
@@ -156,10 +171,10 @@ class Client extends CurlClient
      *
      * @param SynonymCardRequest|array $request
      * @return ResponseSynonymCard
-     * @throws Common\Exceptions\ApiConnectionException
-     * @throws Common\Exceptions\ApiException
-     * @throws Common\Exceptions\ExtensionNotFoundException
-     * @throws Common\Exceptions\OpenSSLException
+     * @throws ApiConnectionException
+     * @throws ApiException
+     * @throws ExtensionNotFoundException
+     * @throws OpenSSLException
      */
     public function getSynonymCard($request)
     {
@@ -180,8 +195,8 @@ class Client extends CurlClient
      * @return bool|false|string
      * @throws AuthorizeException
      * @throws OpenSSLException
-     * @throws Common\Exceptions\ExtensionNotFoundException
-     * @throws Common\Exceptions\XmlException
+     * @throws ExtensionNotFoundException
+     * @throws XmlException
      */
     private function prepareRequest($request)
     {
