@@ -117,7 +117,7 @@ class BankAccountRecipientTest extends TestCase
             'pdr_address'       => 'Яндексграунд',
             'smsPhoneNumber'    => '79998887775',
             'CustAccount'       => '74343443434',
-            'BankBik'           => '111111',
+            'BankBIK'           => '111111',
             'payment_purpose'   => 'purpose',
             'pdr_docIssueYear'  => '2020',
             'pdr_docIssueMonth' => '12',
