@@ -32,29 +32,21 @@ use YooKassaPayout\Request\Builders\MakeDepositionRequestBuilder;
 /**
  * Класс для создания запроса на выплату
  *
- * @example
- * <code>
- *  <?php
- *     $depositionRequest = new MakeDepositionRequest();
-*      $depositionRequest->setDstAccount('41001614575714')
-*                        ->setAmount(100)
-*                        ->setCurrency(CurrencyCode::RUB)
-*                        ->setContract('test')
-*                        ->setPaymentParams($params);
- * </code>
+ * @example 04-deposition.php 62 27 Запрос на выплату
  *
  * @package YooKassaPayout\Request
  */
 class MakeDepositionRequest extends AbstractDepositionRequest
 {
     /**
-     * @var string
+     * @inheritdoc
      */
     protected $requestName = 'makeDeposition';
 
     /**
-     * @param null|string|int $clientOrderId
-     * @return MakeDepositionRequestBuilder
+     * Возвращает объект для сборки запроса MakeDepositionRequest из массива
+     * @param null|string|int $clientOrderId Идентификатор операции
+     * @return MakeDepositionRequestBuilder Объект для сборки запроса MakeDepositionRequest из массива
      */
     public static function getBuilder($clientOrderId = null)
     {

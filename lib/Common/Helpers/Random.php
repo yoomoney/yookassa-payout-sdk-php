@@ -32,17 +32,17 @@ use Exception;
 /**
  * Class Random
  *
- * @package YooKassaPayout\Common\Helpers
+ * @package YooKassaPayout
  */
 class Random
 {
     /**
-     * Возвращает рандомное целое число. По умолчанию возвращает число от нуля до PHP_INT_MAX.
+     * Возвращает случайное целое число. По умолчанию возвращает число от нуля до PHP_INT_MAX.
      * @param int|null $min Минимально возможное значение
      * @param int|null $max Максимально возможное значение
      * @param bool $useBest Использовать ли функцию random_int если она доступна
-     * @return int Рандомное целое число
-     * @throws Exception
+     * @return int Случайное целое число
+     * @throws Exception Выбрасывается, если невозможно сгенерировать случайное число
      */
     public static function int($min = null, $max = null, $useBest = true)
     {
@@ -60,12 +60,12 @@ class Random
     }
 
     /**
-     * Возвращает рандомное число с плавающей точкой. По умолчанию возвращает значение в промежутке от нуля до едениы.
+     * Возвращает случайное число с плавающей точкой. По умолчанию возвращает значение в промежутке от нуля до едениы.
      * @param float|null $min Минимально возможное значение
      * @param float|null $max Максимально возможное значение
      * @param bool $useBest Использовать ли функцию random_int если она доступна
      * @return float Рандомное число с плавающей точкой
-     * @throws Exception
+     * @throws Exception Выбрасывается, если невозможно сгенерировать случайное число
      */
     public static function float($min = null, $max = null, $useBest = true)
     {
@@ -80,13 +80,13 @@ class Random
     }
 
     /**
-     * Возвращает строку из рандомных символов
-     * @param int $length Длина возвращаемой строки, или минимальная длина, если передан парамтр $maxLength
+     * Возвращает строку из случайных символов
+     * @param int $length Длина возвращаемой строки, или минимальная длина, если передан параметр $maxLength
      * @param int|null $maxLength Если параметр не равен null, возвращает сроку длиной от $length до $maxLength
      * @param string|array|null $characters Строка или массив используемых в строке символов
      * @param bool $useBest Использовать ли функцию random_int если она доступна
-     * @return string Строка, состоящая из рандомных символов
-     * @throws Exception
+     * @return string Строка, состоящая из случайных символов
+     * @throws Exception Выбрасывается, если невозможно сгенерировать случайное число
      */
     public static function str($length, $maxLength = null, $characters = null, $useBest = true)
     {
@@ -116,8 +116,8 @@ class Random
      * Возвращает строку, состоящую из символов '0123456789abcdef'
      * @param int $length Длина возвращаемой строки
      * @param bool $useBest Использовать ли функцию random_int если она доступна
-     * @return string Строка, состоящая из рандомных символов
-     * @throws Exception
+     * @return string Строка, состоящая из случайных символов
+     * @throws Exception Выбрасывается, если невозможно сгенерировать случайное число
      */
     public static function hex($length, $useBest = true)
     {
@@ -125,11 +125,11 @@ class Random
     }
 
     /**
-     * Возвращает рандомную последовательность байт
+     * Возвращает случайную последовательность байт
      * @param int $length Длина возвращаемой строки
      * @param bool $useBest Использовать ли функцию random_int если она доступна
-     * @return string Строка, состоящая из рандомных символов
-     * @throws Exception
+     * @return string Строка, состоящая из случайных символов
+     * @throws Exception Выбрасывается, если невозможно сгенерировать случайное число
      */
     public static function bytes($length, $useBest = true)
     {
@@ -146,11 +146,11 @@ class Random
     }
 
     /**
-     * Возвращает рандомное значение из переданного массива
+     * Возвращает случайное значение из переданного массива
      * @param array $values Массив источник данных
      * @param bool $useBest Использовать ли функцию random_int если она доступна
      * @return mixed Случайное значение из переданного массива
-     * @throws Exception
+     * @throws Exception Выбрасывается, если невозможно сгенерировать случайное число
      */
     public static function value(array $values, $useBest = true)
     {
@@ -158,9 +158,9 @@ class Random
     }
 
     /**
-     * Возвращает рандомное буллево значение
+     * Возвращает случайное булево значение
      * @return bool Либо true либо false, одно из двух
-     * @throws Exception
+     * @throws Exception Выбрасывается, если невозможно сгенерировать случайное число
      */
     public static function bool()
     {

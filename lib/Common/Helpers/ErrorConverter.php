@@ -30,12 +30,19 @@ namespace YooKassaPayout\Common\Helpers;
 /**
  * Класс для конвертации ошибок в человекопонятный вид
  *
- * @package YooKassaPayout\Common\Helpers
+ * @package YooKassaPayout
  */
 abstract class ErrorConverter
 {
+    /**
+     * Шаблон неизвестной ошибки
+     */
     const UNKNOWN_ERROR_PATTERN = 'Unknown error #%s';
 
+    /**
+     * Массив возможных ошибок
+     * @var string[]
+     */
     protected static $errors = [
         10 => 'Error in syntactical parsing of the XML document. The document syntax is invalid or required XML elements are omitted.',
         11 => 'The Counterparty\'s ID is invalid or omitted (agentId).',
@@ -67,6 +74,11 @@ abstract class ErrorConverter
         110 => 'The transfer recipient returned the payment (the recipient refers to the mobile carrier or processing bank).',
     ];
 
+    /**
+     * Возвращает строку ошибки по коду
+     * @param int $code Код ошибки
+     * @return string Строка ошибки
+     */
     public static function getErrorMessageByCode($code)
     {
         if (isset(self::$errors[$code])) {

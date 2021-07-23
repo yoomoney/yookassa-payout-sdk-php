@@ -28,7 +28,7 @@ namespace YooKassaPayout\Common\Exceptions;
 
 /**
  * Class EmptyPropertyValueException
- * @package YooKassaPayout\Common\Exceptions
+ * @package YooKassaPayout
  */
 class EmptyPropertyValueException extends InvalidPropertyException
 {

@@ -33,34 +33,50 @@ use YooKassaPayout\Common\Helpers\TypeCast;
 /**
  * Класс для построения параметров получателя при выплате на банковскую карту, затем можно передать в setPaymentParams() у (Make|Test)DepositionRequest
  *
- * @example
- * <code>
- *  <?php
- *      $recipient = new BankCardRecipient();
- *      $recipient->setPdrLastName('Иванов')
- *                 ->setPdrFirstName('Иван')
- *                 ->setPdrMiddleName('Иванович')
- *                 ->setDocNumber('1234567890')
- *                 ->setPofOfferAccepted(true)
- *                 ->setPdrDocIssueDate('01.02.2018')
- *                 ->setSmsPhoneNumber('79000000000')
- *                 ->setSkrDestinationCardSynonym('R8zigwjuuzlxmfOfJ8SPDzLU.SC.000.202002');
+ * @example 02-deposition.php 28 32 Выплата на банковскую карту
  *
- *      $depositionRequest = new MakeDepositionRequest();
- *      $depositionRequest->setPaymentParams($recipient);
- * </code>
- *
- * @package YooKassaPayout\Model\Recipient
+ * @package YooKassaPayout
  */
 class BankCardRecipient extends BaseRecipient
 {
+    /**
+     * Город получателя платежа
+     * @var string
+     */
     protected $pdrCity;
+    /**
+     * Адрес получателя платежа
+     * @var string
+     */
     protected $pdrAddress;
+    /**
+     * Почтовый индекс
+     * @var int|string
+     */
     protected $pdrPostcode;
+    /**
+     * Гражданство. Указывается как цифровой код страны (РФ — 643)
+     * @var int|string
+     */
     protected $pdrCountry;
+    /**
+     * Синоним номера банковской карты
+     * @var string
+     */
     protected $skrDestinationCardSynonym;
+    /**
+     * Идентификатор пользователя в ЮKassa
+     *
+     * Равен значению параметра accountNumber, полученного в ответе после идентификации пользователя через форму
+     * @var string
+     */
     protected $cpsYmAccount;
 
+    /**
+     * Устанавливает город получателя платежа
+     * @param string $value Город получателя платежа
+     * @return $this
+     */
     public function setPdrCity($value)
     {
         if (!TypeCast::canCastToString($value)) {
@@ -72,13 +88,19 @@ class BankCardRecipient extends BaseRecipient
     }
 
     /**
-     * @return mixed
+     * Возвращает город получателя платежа
+     * @return string Город получателя платежа
      */
     public function getPdrCity()
     {
         return $this->pdrCity;
     }
 
+    /**
+     * Устанавливает гражданство. Указывается как цифровой код страны (РФ — 643)
+     * @param int|string $value Код страны
+     * @return $this
+     */
     public function setPdrCountry($value)
     {
         if (!TypeCast::canCastToString($value)) {
@@ -90,13 +112,19 @@ class BankCardRecipient extends BaseRecipient
     }
 
     /**
-     * @return string
+     * Возвращает гражданство
+     * @return string Код страны
      */
     public function getPdrCountry()
     {
         return $this->pdrCountry;
     }
 
+    /**
+     * Устанавливает почтовый индекс
+     * @param int|string $value Почтовый индекс
+     * @return $this
+     */
     public function setPdrPostcode($value)
     {
         if (!TypeCast::canCastToString($value)) {
@@ -108,13 +136,19 @@ class BankCardRecipient extends BaseRecipient
     }
 
     /**
-     * @return mixed
+     * Возвращает почтовый индекс
+     * @return string Почтовый индекс
      */
     public function getPdrPostcode()
     {
         return $this->pdrPostcode;
     }
 
+    /**
+     * Устанавливает синоним карты
+     * @param string $value Синоним карты
+     * @return $this
+     */
     public function setSkrDestinationCardSynonym($value)
     {
         if (!TypeCast::canCastToString($value)) {
@@ -126,13 +160,19 @@ class BankCardRecipient extends BaseRecipient
     }
 
     /**
-     * @return mixed
+     * Возвращает синоним карты
+     * @return string Синоним карты
      */
     public function getSkrDestinationCardSynonym()
     {
         return $this->skrDestinationCardSynonym;
     }
 
+    /**
+     * Устанавливает идентификатор пользователя в ЮKassa
+     * @param string $value Идентификатор пользователя в ЮKassa
+     * @return $this
+     */
     public function setCpsYmAccount($value)
     {
         if (!TypeCast::canCastToString($value)) {
@@ -144,18 +184,26 @@ class BankCardRecipient extends BaseRecipient
     }
 
     /**
-     * @return mixed
+     * Возвращает идентификатор пользователя в ЮKassa
+     * @return string Идентификатор пользователя в ЮKassa
      */
     public function getCpsYmAccount()
     {
         return $this->cpsYmAccount;
     }
 
+    /**
+     * Возвращает флаг установки идентификатора пользователя в ЮKassa
+     * @return bool Флаг установки идентификатора пользователя в ЮKassa
+     */
     public function hasCpsYmAccount()
     {
         return !empty($this->getCpsYmAccount());
     }
 
+    /**
+     * @inheritdoc Описание из родительского класса
+     */
     public function toArray()
     {
         $baseRecipient = [];

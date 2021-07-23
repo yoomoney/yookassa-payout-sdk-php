@@ -36,34 +36,41 @@ use YooKassaPayout\Model\Recipient\BankCardRecipient;
 use YooKassaPayout\Request\Serializers\DepositionRequestSerializer;
 
 /**
- * Class AbstractDepositionRequest
+ * Абстрактный класс запроса выплат
  *
- * @package YooKassaPayout\Request
+ * @package YooKassaPayout
  */
 abstract class AbstractDepositionRequest extends AbstractRequest
 {
     /**
-     * @var
+     * Идентификатор получателя перевода
+     * @var string
      */
     protected $dstAccount;
 
     /**
-     * @var
+     * Сумма перевода
+     * @var numeric
      */
     protected $amount;
 
     /**
-     * @var
+     * Код валюты перевода
+     *
+     * Возможное значение — 643 (российский рубль)
+     * @var int|string
      */
     protected $currency = CurrencyCode::RUB;
 
     /**
-     * @var
+     * Основание для зачисления перевода
+     * @var string
      */
     protected $contract;
 
     /**
-     * @var
+     * Элемент запроса для передачи дополнительных параметров перевода
+     * @var BaseRecipient|BankCardRecipient|BankAccountRecipient|array
      */
     protected $paymentParams;
 
@@ -76,7 +83,8 @@ abstract class AbstractDepositionRequest extends AbstractRequest
     }
 
     /**
-     * @param string|int $value
+     * Устанавливает идентификатор получателя перевода
+     * @param string|int $value Идентификатор получателя перевода
      * @return AbstractDepositionRequest
      */
     public function setDstAccount($value)
@@ -93,7 +101,8 @@ abstract class AbstractDepositionRequest extends AbstractRequest
     }
 
     /**
-     * @return mixed
+     * Возвращает идентификатор получателя перевода
+     * @return string Идентификатор получателя перевода
      */
     public function getDstAccount()
     {
@@ -101,7 +110,8 @@ abstract class AbstractDepositionRequest extends AbstractRequest
     }
 
     /**
-     * @param $value
+     * Устанавливает сумму перевода
+     * @param numeric $value Сумма перевода
      * @return $this
      */
     public function setAmount($value)
@@ -118,7 +128,8 @@ abstract class AbstractDepositionRequest extends AbstractRequest
     }
 
     /**
-     * @return mixed
+     * Возвращает сумму перевода
+     * @return numeric Сумма перевода
      */
     public function getAmount()
     {
@@ -126,7 +137,8 @@ abstract class AbstractDepositionRequest extends AbstractRequest
     }
 
     /**
-     * @param $value
+     * Устанавливает код валюты перевода
+     * @param int|string $value Код валюты перевода
      * @return $this
      */
     public function setCurrency($value = CurrencyCode::RUB)
@@ -142,15 +154,17 @@ abstract class AbstractDepositionRequest extends AbstractRequest
     }
 
     /**
-     * @return mixed
+     * Возвращает код валюты перевода
+     * @return string Код валюты перевода
      */
     public function getCurrency()
     {
-        return $this->currency;
+        return (string)$this->currency;
     }
 
     /**
-     * @param mixed $value
+     * Устанавливает основание для зачисления перевода
+     * @param string $value Основание для зачисления перевода
      * @return AbstractDepositionRequest
      */
     public function setContract($value)
@@ -164,15 +178,17 @@ abstract class AbstractDepositionRequest extends AbstractRequest
     }
 
     /**
-     * @return mixed
+     * Возвращает основание для зачисления перевода
+     * @return string Основание для зачисления перевода
      */
     public function getContract()
     {
-        return (string)$this->contract;
+        return $this->contract;
     }
 
     /**
-     * @param BaseRecipient|BankCardRecipient|BankAccountRecipient|array $params
+     * Устанавливает дополнительные параметры перевода
+     * @param BaseRecipient|BankCardRecipient|BankAccountRecipient|array $params Дополнительные параметры перевода
      * @return $this
      */
     public function setPaymentParams($params)
@@ -191,7 +207,8 @@ abstract class AbstractDepositionRequest extends AbstractRequest
     }
 
     /**
-     * @return BankAccountRecipient|BankCardRecipient|array
+     * Возвращает дополнительные параметры перевода
+     * @return BaseRecipient|BankCardRecipient|BankAccountRecipient|array Дополнительные параметры перевода
      */
     public function getPaymentParams()
     {
@@ -199,7 +216,8 @@ abstract class AbstractDepositionRequest extends AbstractRequest
     }
 
     /**
-     * @return bool
+     * Проверяет установлены ли дополнительные параметры перевода
+     * @return bool Флаг установки дополнительных параметров перевода
      */
     public function hasPaymentParams()
     {
@@ -207,7 +225,8 @@ abstract class AbstractDepositionRequest extends AbstractRequest
     }
 
     /**
-     * @return Serializers\DepositionRequestSerializer
+     * Возвращает объект для преобразования запроса в массив
+     * @return Serializers\DepositionRequestSerializer Объект для преобразования запроса в массив
      */
     public function getSerializer()
     {

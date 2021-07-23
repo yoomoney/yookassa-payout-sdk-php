@@ -27,9 +27,9 @@
 namespace YooKassaPayout\Request\Serializers;
 
 /**
- * Class BalanceRequestSerializer
+ * Класс для преобразования запроса баланса в массив
  *
- * @package YooKassaPayout\Request\Serializers
+ * @package YooKassaPayout
  */
 class BalanceRequestSerializer extends AbstractRequestSerializer
 {

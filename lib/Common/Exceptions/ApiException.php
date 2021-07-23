@@ -30,16 +30,18 @@ use Exception;
 
 /**
  * Class ApiException
- * @package YooKassaPayout\Common\Exceptions
+ * @package YooKassaPayout
  */
 class ApiException extends Exception
 {
     /**
+     * Тело ответа
      * @var mixed
      */
     protected $responseBody;
 
     /**
+     * Заголовки ответа
      * @var string[]
      */
     protected $responseHeaders;
@@ -47,12 +49,12 @@ class ApiException extends Exception
     /**
      * Constructor
      *
-     * @param string $message Error message
-     * @param int $code HTTP status code
-     * @param string[] $responseHeaders HTTP header
-     * @param mixed $responseBody HTTP body
+     * @param string $message Текст ошибки
+     * @param int $code Код ошибки
+     * @param string[] $responseHeaders HTTP Заголовки
+     * @param mixed $responseBody Тело запроса
      */
-    public function __construct($message = "", $code = 0, $responseHeaders = [], $responseBody = null)
+    public function __construct($message = '', $code = 0, $responseHeaders = [], $responseBody = null)
     {
         parent::__construct($message, $code);
         $this->responseHeaders = $responseHeaders;
@@ -60,7 +62,8 @@ class ApiException extends Exception
     }
 
     /**
-     * @return string[]
+     * Возвращает заголовки ответа
+     * @return string[] Заголовки ответа
      */
     public function getResponseHeaders()
     {
@@ -68,7 +71,8 @@ class ApiException extends Exception
     }
 
     /**
-     * @return mixed
+     * Возвращает тело ответа
+     * @return mixed Тело ответа
      */
     public function getResponseBody()
     {

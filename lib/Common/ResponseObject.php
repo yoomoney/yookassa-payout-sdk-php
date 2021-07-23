@@ -27,25 +27,43 @@
 namespace YooKassaPayout\Common;
 
 
+use YooKassaPayout\Common\Exceptions\ApiException;
+use YooKassaPayout\Common\Exceptions\OpenSSLException;
 use YooKassaPayout\Common\Helpers\OpenSSL;
 
 /**
  * Класс объекта ответа, возвращаемого API при запросе выплаты, баланса
  *
- * @package YooKassaPayout\Common
+ * @package YooKassaPayout
  */
 class ResponseObject
 {
+    /**
+     * Код ответа
+     * @var mixed
+     */
     protected $code;
+    /**
+     * Заголовки ответа
+     * @var mixed
+     */
     protected $headers;
+    /**
+     * Тело ответа
+     * @var mixed
+     */
     protected $body;
+    /**
+     * Расшифрованное тело ответа
+     * @var ResponseXmlObject
+     */
     protected $xmlResponse;
 
     /**
      * ResponseObject constructor.
-     * @param null $config
-     * @throws Exceptions\OpenSSLException
-     * @throws Exceptions\ApiException
+     * @param array|null $config Массив с данными ответа
+     * @throws ApiException Выбрасывается, если API вернул ответ с ошибкой
+     * @throws OpenSSLException Выбрасывается при ошибке работы с OpenSSL
      */
     public function __construct($config = null)
     {
@@ -66,6 +84,7 @@ class ResponseObject
     }
 
     /**
+     * Возвращает массив заголовков ответа
      * @return mixed
      */
     public function getHeaders()
@@ -74,6 +93,7 @@ class ResponseObject
     }
 
     /**
+     * Возвращает тело ответа
      * @return mixed
      */
     public function getBody()
@@ -82,6 +102,7 @@ class ResponseObject
     }
 
     /**
+     * Возвращает преобразованное в объект тело ответа
      * @return ResponseXmlObject
      */
     public function getXmlResponse()
@@ -90,6 +111,7 @@ class ResponseObject
     }
 
     /**
+     * Возвращает код ответа
      * @return mixed
      */
     public function getCode()
@@ -99,7 +121,7 @@ class ResponseObject
 
     /**
      * Проверяет является ли содержимое $data пакетом PKCS#7
-     * @param string $data
+     * @param string $data Тело ответа
      * @return bool
      */
     private function isPkcs7($data)

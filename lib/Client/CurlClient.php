@@ -35,28 +35,32 @@ use YooKassaPayout\Common\Helpers\RawHeadersParser;
 use YooKassaPayout\Common\ResponseObject;
 
 /**
- * Class CurlClient
+ * Класс клиента CURL
  *
- * @package YooKassaPayout\Client
+ * @package YooKassaPayout
  */
 class CurlClient extends BaseClient
 {
     /**
+     * Корневой URL API
      * @var string
      */
     protected $requestUrl = 'https://payouts.yookassa.ru:9094/';
 
     /**
+     * Ресурс CURL
      * @var resource
      */
     private $curl;
 
     /**
+     * Конфигурация CURL
      * @var CurlConfiguration
      */
     private $curlConfiguration;
 
     /**
+     * Заголовки запроса по умолчанию
      * @var array
      */
     private $defaultHeaders = [
@@ -65,7 +69,7 @@ class CurlClient extends BaseClient
 
     /**
      * CurlClient constructor.
-     * @param null $curlConfiguration
+     * @param CurlConfiguration|null $curlConfiguration Конфигурация CURL
      */
     public function __construct($curlConfiguration = null)
     {
@@ -77,7 +81,9 @@ class CurlClient extends BaseClient
     }
 
     /**
-     * @param string $requestUrl
+     * Устанавливает URL запроса
+     *
+     * @param string $requestUrl URL запроса
      */
     protected function setRequestUrl($requestUrl)
     {
@@ -85,7 +91,9 @@ class CurlClient extends BaseClient
     }
 
     /**
-     * @return string
+     * Возвращает URL запроса
+     *
+     * @return string URL запроса
      */
     protected function getRequestUrl()
     {
@@ -93,7 +101,9 @@ class CurlClient extends BaseClient
     }
 
     /**
-     * @return CurlConfiguration
+     * Возвращает настройки CURL
+     *
+     * @return CurlConfiguration Конфигурация CURL
      */
     public function getCurlConfiguration()
     {
@@ -101,17 +111,19 @@ class CurlClient extends BaseClient
     }
 
     /**
-     * @param $path
-     * @param $method
-     * @param $queryParams
-     * @param null $httpBody
-     * @param array $headers
+     * Выполняет запрос к API и возвращает структурированный ответ
      *
-     * @return ResponseObject
-     * @throws ApiConnectionException
-     * @throws ApiException
-     * @throws OpenSSLException
-     * @throws ExtensionNotFoundException
+     * @param string $path URL запроса
+     * @param string $method HTTP метод
+     * @param array $queryParams GET параметры
+     * @param string|null $httpBody Тело запроса
+     * @param array|null $headers Заголовки
+     *
+     * @return ResponseObject Объект ответа API
+     * @throws ApiConnectionException Выбрасывается, если CURL запрос завершился ошибкой
+     * @throws ApiException Выбрасывается, если API вернул ответ с ошибкой
+     * @throws OpenSSLException Выбрасывается при ошибке работы с OpenSSL
+     * @throws ExtensionNotFoundException Выбрасывается, если не установлено расширение CURL для PHP
      */
     protected function call($path, $method, $queryParams, $httpBody = null, $headers = [])
     {
@@ -137,19 +149,21 @@ class CurlClient extends BaseClient
     }
 
     /**
-     * Выполнение запроса
+     * Выполняет запрос к API и возвращает структурированный ответ
      *
-     * @param $path
-     * @param $method
-     * @param $queryParams
-     * @param null $httpBody
-     * @param array $headers
+     * Алиас для CurlClient::call()
      *
-     * @return ResponseObject
-     * @throws ApiException
-     * @throws ApiConnectionException
-     * @throws ExtensionNotFoundException
-     * @throws OpenSSLException
+     * @param string $path URL запроса
+     * @param string $method HTTP метод
+     * @param array $queryParams GET параметры
+     * @param string|null $httpBody Тело запроса
+     * @param array|null $headers Заголовки
+     *
+     * @return ResponseObject Объект ответа API
+     * @throws ApiConnectionException Выбрасывается, если CURL запрос завершился ошибкой
+     * @throws ApiException Выбрасывается, если API вернул ответ с ошибкой
+     * @throws ExtensionNotFoundException Выбрасывается, если не установлено расширение CURL для PHP
+     * @throws OpenSSLException Выбрасывается при ошибке работы с OpenSSL
      */
     protected function execute($path, $method, $queryParams, $httpBody = null, $headers = [])
     {
@@ -157,8 +171,10 @@ class CurlClient extends BaseClient
     }
 
     /**
-     * @return array
-     * @throws ApiConnectionException
+     * Выполняет CURL запрос
+     *
+     * @return array Массив данных при ответе CURL
+     * @throws ApiConnectionException Выбрасывается, если CURL запрос завершился ошибкой
      */
     protected function sendRequest()
     {
@@ -177,8 +193,10 @@ class CurlClient extends BaseClient
     }
 
     /**
-     * @return resource
-     * @throws ExtensionNotFoundException
+     * Инициализирует CURL сессию
+     *
+     * @return resource Ресурс CURL
+     * @throws ExtensionNotFoundException Выбрасывается, если не установлено расширение CURL для PHP
      */
     protected function initCurl()
     {
@@ -194,7 +212,7 @@ class CurlClient extends BaseClient
     }
 
     /**
-     * Close connection
+     * Закрывает CURL сессию
      */
     private function closeCurlConnection()
     {
@@ -205,10 +223,12 @@ class CurlClient extends BaseClient
     }
 
     /**
-     * @param $optionName
-     * @param $optionValue
+     * Устанавливает параметр CURL
      *
-     * @return bool
+     * @param int $optionName Параметр CURL
+     * @param mixed $optionValue Значение параметра
+     *
+     * @return bool Результат установки параметра
      */
     protected function setCurlOption($optionName, $optionValue)
     {
@@ -216,8 +236,10 @@ class CurlClient extends BaseClient
     }
 
     /**
-     * @param $method
-     * @param $httpBody
+     * Устанавливает тело запроса для CURL
+     *
+     * @param string $method HTTP метод
+     * @param string $httpBody Тело запроса
      */
     protected function setBody($method, $httpBody)
     {
@@ -229,10 +251,12 @@ class CurlClient extends BaseClient
     }
 
     /**
-     * @param string $error
-     * @param int $errno
+     * Выбрасывает исключение с текстом в зависимости от ошибки
      *
-     * @throws ApiConnectionException
+     * @param string $error Текст ошибки
+     * @param int $errno Номер ошибки
+     *
+     * @throws ApiConnectionException Выбрасывается, если CURL запрос завершился ошибкой
      */
     private function handleCurlError($error, $errno)
     {
@@ -254,11 +278,13 @@ class CurlClient extends BaseClient
     }
 
     /**
-     * @param $path
-     * @param $method
-     * @param $queryParams
-     * @param $httpBody
-     * @param $headers
+     * Логирование параметров CURL запроса
+     *
+     * @param string $path URL запроса
+     * @param string $method HTTP метод
+     * @param array $queryParams GET параметры
+     * @param string $httpBody Тело запроса
+     * @param array $headers Заголовки
      */
     private function logRequestParams($path, $method, $queryParams, $httpBody, $headers)
     {
@@ -279,9 +305,11 @@ class CurlClient extends BaseClient
     }
 
     /**
-     * @param $httpBody
-     * @param $responseInfo
-     * @param $httpHeaders
+     * Логирование ответа
+     *
+     * @param string $httpBody Тело ответа
+     * @param array $responseInfo Информация об ответе
+     * @param array $httpHeaders Заголовки ответа
      */
     private function logResponse($httpBody, $responseInfo, $httpHeaders)
     {
@@ -303,9 +331,11 @@ class CurlClient extends BaseClient
     }
 
     /**
-     * @param $headers
+     * Подготавливает необходимые заголовки для запроса
      *
-     * @return array
+     * @param array $headers Заголовки
+     *
+     * @return array Заголовки
      */
     private function prepareHeaders($headers)
     {
@@ -317,10 +347,12 @@ class CurlClient extends BaseClient
     }
 
     /**
-     * @param $path
-     * @param $queryParams
+     * Формирует полный URL для запроса
      *
-     * @return string
+     * @param string $path URL запроса
+     * @param array $queryParams GET параметры
+     *
+     * @return string Полный URL
      */
     private function prepareUrl($path, $queryParams)
     {
@@ -334,11 +366,13 @@ class CurlClient extends BaseClient
     }
 
     /**
-     * @param $method
-     * @param $httpBody
-     * @param $headers
-     * @param $url
-     * @throws ExtensionNotFoundException
+     * Подготовка параметров CURL
+     *
+     * @param string $method HTTP метод
+     * @param string $httpBody Тело запроса
+     * @param array $headers Заголовки
+     * @param string $url URL запроса
+     * @throws ExtensionNotFoundException Выбрасывается, если не установлено расширение CURL для PHP
      */
     private function prepareCurl($method, $httpBody, $headers, $url)
     {

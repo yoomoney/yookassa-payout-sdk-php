@@ -30,15 +30,18 @@ namespace YooKassaPayout\Request\Serializers;
 use YooKassaPayout\Request\SynonymCardRequest;
 
 /**
- * Class SynonymCardRequestSerializer
+ * Класс, преобразующий запрос синонима карты в массив
  *
- * @package YooKassaPayout\Request\Serializers
+ * @package YooKassaPayout
  */
 class SynonymCardRequestSerializer
 {
     /**
-     * @param SynonymCardRequest $request
-     * @return array
+     * Формирует массив из запроса
+     *
+     * @param SynonymCardRequest $request Запрос синонима карты
+     *
+     * @return array Массив параметров
      */
     public function serialize(SynonymCardRequest $request)
     {

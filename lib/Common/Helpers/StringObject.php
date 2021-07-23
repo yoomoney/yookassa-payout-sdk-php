@@ -29,12 +29,13 @@ namespace YooKassaPayout\Common\Helpers;
 /**
  * Класс объекта, кастящегося в строку, используется только в тестах
  *
- * @package YooKassaPayout\Common\Helpers
+ * @package YooKassaPayout
  */
 class StringObject
 {
     /**
-     * @var string Значение, возвращаемое методом __toString
+     * Значение, возвращаемое методом __toString
+     * @var string
      */
     private $value;
 

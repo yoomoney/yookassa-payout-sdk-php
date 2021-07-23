@@ -28,6 +28,7 @@
 namespace YooKassaPayout;
 
 use YooKassaPayout\Client\CurlClient;
+use YooKassaPayout\Client\CurlConfiguration;
 use YooKassaPayout\Common\Exceptions\ApiConnectionException;
 use YooKassaPayout\Common\Exceptions\ApiException;
 use YooKassaPayout\Common\Exceptions\AuthorizeException;
@@ -53,33 +54,44 @@ use YooKassaPayout\Request\TestDepositionRequest;
 /**
  * Класс клиента API
  *
- * @example
- * <code>
- *  <?php
- *      $keychain = new Keychain('publicCert.cer', 'privateCert.pem', 'password');
- *      $client = new Client('000000', $keychain);
- *      $response = $client->createDeposition($request);
- *      $response->getXmlResponse()->getStatus();
- * </code>
+ * @example 01-client.php 3 5 Создание клиента
  *
  * @package YooKassaPayout
  */
 class Client extends CurlClient
 {
-    const SDK_VERSION = '2.2.1';
+    /**
+     * Текущая версия SDK
+     */
+    const SDK_VERSION = '2.2.2';
 
+    /**
+     * Корневой URL API
+     */
     const PAYOUT_REQUEST_ENDPOINT  = "https://payouts.yookassa.ru:9094/";
+    /**
+     * Корневой URL для получения синонима карты
+     */
     const SYNONYM_REQUEST_ENDPOINT = "https://paymentcard.yoomoney.ru/";
 
+    /**
+     * URL для запроса выплаты
+     */
     const DEPOSITION_REQUEST   = "webservice/deposition/api/%s";
+    /**
+     * URL для получения баланса
+     */
     const BALANCE_REQUEST      = "webservice/deposition/api/balance";
+    /**
+     * URL для получения синонима карты
+     */
     const SYNONYM_CARD_REQUEST = "gates/card/storeCard";
 
     /**
      * Client constructor.
-     * @param string $agentId
-     * @param Keychain $keychain
-     * @param null $curlConfiguration
+     * @param string $agentId Идентификатор контрагента
+     * @param Keychain|null $keychain Объект с ключами
+     * @param CurlConfiguration|null $curlConfiguration Объект конфигурации CURL
      */
     public function __construct($agentId = '', Keychain $keychain = null, $curlConfiguration = null)
     {
@@ -93,15 +105,16 @@ class Client extends CurlClient
      *
      * Метод принимает объект запроса Make|Test DepositionRequest
      *
-     * @param AbstractDepositionRequest|array $request
-     * @param string|int $clientOrderId
-     * @return ResponseObject
-     * @throws AuthorizeException
-     * @throws ApiConnectionException
-     * @throws ApiException
-     * @throws ExtensionNotFoundException
-     * @throws XmlException
-     * @throws OpenSSLException
+     * @param AbstractDepositionRequest|array $request Объект запроса
+     * @param string|int $clientOrderId Идентификатор операции
+     *
+     * @return ResponseObject Объект ответа
+     * @throws AuthorizeException Выбрасывается, если установлены необходимые для коммуникации данные
+     * @throws ApiConnectionException Выбрасывается, если CURL запрос завершился ошибкой
+     * @throws ApiException Выбрасывается, если API вернул ответ с ошибкой
+     * @throws ExtensionNotFoundException Выбрасывается, если не установлено расширение CURL для PHP
+     * @throws OpenSSLException Выбрасывается при ошибке работы с OpenSSL
+     * @throws XmlException Выбрасывается при ошибке работы с XML
      */
     public function createDeposition($request, $clientOrderId = null)
     {
@@ -117,18 +130,18 @@ class Client extends CurlClient
         $request = $this->prepareRequest($request);
 
         $this->setRequestUrl(self::PAYOUT_REQUEST_ENDPOINT);
-        return $this->execute(sprintf(self::DEPOSITION_REQUEST, $requestEndpoint), HttpVerb::POST, '', $request);
+        return $this->execute(sprintf(self::DEPOSITION_REQUEST, $requestEndpoint), HttpVerb::POST, [], $request);
     }
 
     /**
      * Возвращает баланс
      *
-     * @return ResponseObject
-     * @throws ApiConnectionException
-     * @throws ApiException
-     * @throws ExtensionNotFoundException
-     * @throws OpenSSLException
-     * @throws XmlException
+     * @return ResponseObject Объект ответа
+     * @throws ApiConnectionException Выбрасывается, если CURL запрос завершился ошибкой
+     * @throws ApiException Выбрасывается, если API вернул ответ с ошибкой
+     * @throws ExtensionNotFoundException Выбрасывается, если не установлено расширение CURL для PHP
+     * @throws OpenSSLException Выбрасывается при ошибке работы с OpenSSL
+     * @throws XmlException Выбрасывается при ошибке работы с XML
      */
     public function getBalance()
     {
@@ -136,21 +149,22 @@ class Client extends CurlClient
         $request = $this->prepareRequest($request);
 
         $this->setRequestUrl(self::PAYOUT_REQUEST_ENDPOINT);
-        return $this->execute(self::BALANCE_REQUEST, HttpVerb::POST, '', $request);
+        return $this->execute(self::BALANCE_REQUEST, HttpVerb::POST, [], $request);
     }
 
     /**
      * Создает приватный ключ и запрос на сертификат для ЮMoney.
      * Возвращает подпись
      *
-     * @param array|Organization $organizationInfo
-     * @param string $outputDir
-     * @param string $privateKeyPassword
-     * @param string|string[]|null $privateKeyPath
-     * @param array|null $config
-     * @return string|string[]
-     * @throws OpenSSLException
-     * @throws SaveFileException
+     * @param array|Organization $organizationInfo Данные организации
+     * @param string $outputDir Каталог для сгенерированных файлов
+     * @param string $privateKeyPassword Пароль для закрытого ключа
+     * @param string|string[]|null $privateKeyPath Путь к имеющемуся закрытому ключу
+     * @param array|null $config Путь к файлу openssl.cnf
+     *
+     * @return string|string[] Подпись
+     * @throws OpenSSLException Выбрасывается при ошибке работы с OpenSSL
+     * @throws SaveFileException Выбрасывается при ошибке сохранения файла
      */
     public function createCsr($organizationInfo,
                               $outputDir = __DIR__,
@@ -166,15 +180,16 @@ class Client extends CurlClient
     }
 
     /**
-     * Возвращает синоним карты
+     * Возвращает синоним карты.
      * Принимает объект запроса SynonymCardRequest
      *
-     * @param SynonymCardRequest|array $request
-     * @return ResponseSynonymCard
-     * @throws ApiConnectionException
-     * @throws ApiException
-     * @throws ExtensionNotFoundException
-     * @throws OpenSSLException
+     * @param SynonymCardRequest|array $request Объект запроса получения синонима карты
+     *
+     * @return ResponseSynonymCard Объект содержащий синоним карты
+     * @throws ApiConnectionException Выбрасывается, если CURL запрос завершился ошибкой
+     * @throws ApiException Выбрасывается, если API вернул ответ с ошибкой
+     * @throws ExtensionNotFoundException Выбрасывается, если не установлено расширение CURL для PHP
+     * @throws OpenSSLException Выбрасывается при ошибке работы с OpenSSL
      */
     public function getSynonymCard($request)
     {
@@ -191,14 +206,17 @@ class Client extends CurlClient
     }
 
     /**
-     * @param AbstractRequest $request
-     * @return bool|false|string
-     * @throws AuthorizeException
-     * @throws OpenSSLException
-     * @throws ExtensionNotFoundException
-     * @throws XmlException
+     * Выполняет CURL запрос к API
+     *
+     * @param AbstractRequest $request Объект запроса
+     *
+     * @return bool|string Результат выполнения запроса
+     * @throws AuthorizeException Выбрасывается, если установлены необходимые для коммуникации данные
+     * @throws OpenSSLException Выбрасывается при ошибке работы с OpenSSL
+     * @throws ExtensionNotFoundException Выбрасывается, если не установлено расширение CURL для PHP
+     * @throws XmlException Выбрасывается при ошибке работы с XML
      */
-    private function prepareRequest($request)
+    private function prepareRequest(AbstractRequest $request)
     {
         if (empty($this->getAgentId())) {
             throw new AuthorizeException('Missing required property agentId');
@@ -214,7 +232,7 @@ class Client extends CurlClient
 
         $this->setCurlOption(CURLOPT_SSLCERTPASSWD, $this->getKeychain()->getKeyPassword());
 
-        if ($request->getFormatType() === FormatType::XML) {
+        if ($request->getFormatType() == FormatType::XML) {
             $result = $this->prepareXml($request);
         } else {
             $result = $this->prepareJson($request);

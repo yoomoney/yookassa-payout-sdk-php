@@ -31,20 +31,21 @@ use YooKassaPayout\Request\AbstractRequest;
 
 /**
  * Class InvalidRequestException
- * @package YooKassaPayout\Common\Exceptions
+ * @package YooKassaPayout
  */
 class InvalidRequestException extends RuntimeException
 {
     /**
+     * Объект запроса
      * @var AbstractRequest|null
      */
     private $errorRequest;
 
     /**
      * InvalidRequestException constructor.
-     * @param AbstractRequest|string $error
-     * @param int $code
-     * @param null $previous
+     * @param AbstractRequest|string $error Объект запроса
+     * @param int $code Код ошибки
+     * @param null $previous Предыдущее исключение
      */
     public function __construct($error, $code = 0, $previous = null)
     {
@@ -58,7 +59,8 @@ class InvalidRequestException extends RuntimeException
     }
 
     /**
-     * @return AbstractRequest|null
+     * Возвращает объект запроса
+     * @return AbstractRequest|null Объект запроса
      */
     public function getRequestObject()
     {

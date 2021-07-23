@@ -33,23 +33,57 @@ use YooKassaPayout\Common\Helpers\ErrorConverter;
 /**
  * Класс объекта ответа, возвращаемого API, для работы с xml
  *
- * @package YooKassaPayout\Common
+ * @package YooKassaPayout
  */
 class ResponseXmlObject
 {
+    /**
+     * Полная XML строка ответа
+     * @var string
+     */
     protected $fullXmlResponse;
+    /**
+     * Результат выполнения операции
+     * @var int
+     */
     protected $status;
+    /**
+     * Код ошибки выполнения запроса
+     * @var int
+     */
     protected $error;
+    /**
+     * Идентификатор операции
+     * @var string
+     */
     protected $clientOrderId;
+    /**
+     * Время обработки запроса
+     * @var string
+     */
     protected $processedDT;
+    /**
+     * Баланс
+     *
+     * Разница между суммой обеспечения и суммой, которую ЮKassa перечислили по запросам контрагента
+     * @var numeric
+     */
     protected $balance;
+    /**
+     * Дополнительный поясняющий текст к отказам в приеме перевода
+     * @var string
+     */
     protected $techMessage;
+    /**
+     * Поле содержит информацию о статусе кошелька в сервисе ЮMoney
+     * @var string
+     */
     protected $identification;
 
     /**
      * ResponseXmlObject constructor.
-     * @param $xml
-     * @throws ApiException
+     * @param string $xml Исходная строка XML
+     * @throws ApiException Выбрасывается, если API вернул ответ с ошибкой
      */
     public function __construct($xml)
     {
@@ -57,7 +91,6 @@ class ResponseXmlObject
 
         $xmlObject  = simplexml_load_string($xml);
         $attributes = $xmlObject->attributes();
-
         if (isset($attributes['error'])) {
             $errMessage = !empty($attributes['techMessage'])
                            ? (string)$attributes['techMessage']
@@ -72,7 +105,8 @@ class ResponseXmlObject
     }
 
     /**
-     * @return string
+     * Возвращает полную XML строку ответа
+     * @return string Полная XML строка ответа
      */
     public function getFullXmlResponse()
     {
@@ -80,7 +114,8 @@ class ResponseXmlObject
     }
 
     /**
-     * @return int
+     * Возвращает результат выполнения операции
+     * @return int Результат выполнения операции
      */
     public function getStatus()
     {
@@ -88,7 +123,8 @@ class ResponseXmlObject
     }
 
     /**
-     * @return string
+     * Возвращает Идентификатор операции
+     * @return string Идентификатор операции
      */
     public function getClientOrderId()
     {
@@ -96,7 +132,8 @@ class ResponseXmlObject
     }
 
     /**
-     * @return string
+     * Возвращает баланс
+     * @return string Баланс
      */
     public function getBalance()
     {
@@ -104,7 +141,8 @@ class ResponseXmlObject
     }
 
     /**
-     * @return string
+     * Врзвращает информацию о статусе кошелька в сервисе ЮMoney
+     * @return string Информация о статусе кошелька в сервисе ЮMoney
      */
     public function getIdentification()
     {
@@ -112,7 +150,8 @@ class ResponseXmlObject
     }
 
     /**
-     * @return string
+     * Возвращает время обработки запроса
+     * @return string Время обработки запроса
      */
     public function getProcessedDT()
     {
@@ -120,7 +159,8 @@ class ResponseXmlObject
     }
 
     /**
-     * @return string
+     * Возвращает дополнительный поясняющий текст к отказам в приеме перевода
+     * @return string Дополнительный поясняющий текст к отказам в приеме перевода
      */
     public function getTechMessage()
     {

@@ -33,16 +33,17 @@ use YooKassaPayout\Common\Exceptions\InvalidPropertyValueException;
 use YooKassaPayout\Model\IssueDate;
 
 /**
- * Class Parser
+ * Класс для разбора даты
  *
- * @package YooKassaPayout\Common\Helpers
+ * @package YooKassaPayout
  */
-class Parser
+class DateParser
 {
     /**
-     * @param $date
-     * @return array
-     * @throws Exception
+     * Разбивает дату на части
+     * @param string $date Дата в формате дд.мм.гггг
+     * @return array Массив с частями даты
+     * @throws Exception Выбрасывается, если произошла ошибка работы с датой
      */
     public static function parseDateToArray($date)
     {
@@ -63,9 +64,10 @@ class Parser
     }
 
     /**
-     * @param $date
-     * @return IssueDate
-     * @throws Exception
+     * Возвращает объект для работы с датой
+     * @param string $date Дата в формате дд.мм.гггг
+     * @return IssueDate Объект для работы с датой
+     * @throws Exception Выбрасывается, если произошла ошибка работы с датой
      */
     public static function parseDateToIssueDate($date)
     {

@@ -32,12 +32,21 @@ use YooKassaPayout\Common\AbstractEnum;
 /**
  * CurrencyCode - Код валюты перевода
  *
- * @package YooKassaPayout\Model
+ * @package YooKassaPayout
  */
 class CurrencyCode extends AbstractEnum
 {
+    /**
+     * Российский рубль
+     */
     const RUB = 643;
+    /**
+     * Доллар США
+     */
     const USD = 840;
+    /**
+     * Евро
+     */
     const EUR = 978;
 
     protected static $validValues = [

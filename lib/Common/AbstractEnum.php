@@ -28,12 +28,13 @@ namespace YooKassaPayout\Common;
 
 /**
  * Class AbstractEnum
- * @package YooKassaPayout\Common
+ * @package YooKassaPayout
  */
 abstract class AbstractEnum
 {
     /**
-     * @var array Массив принимаемых enum'ом значений
+     * Массив принимаемых enum'ом значений
+     * @var array
      */
     protected static $validValues = [];
 

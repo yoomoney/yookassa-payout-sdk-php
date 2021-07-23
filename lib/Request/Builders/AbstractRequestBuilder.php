@@ -34,13 +34,14 @@ use YooKassaPayout\Common\Exceptions\InvalidRequestException;
 use YooKassaPayout\Request\AbstractDepositionRequest;
 
 /**
- * Class AbstractRequestBuilder
+ * Абстрактный класс для сборки запроса выплаты из массива
  *
- * @package YooKassaPayout\Request\Builders
+ * @package YooKassaPayout
  */
 abstract class AbstractRequestBuilder
 {
     /**
+     * Запрос выплаты
      * @var AbstractDepositionRequest
      */
     protected $objectRequest;
@@ -76,7 +77,7 @@ abstract class AbstractRequestBuilder
      * Устанавливает свойства запроса из массива
      * @param array|Traversable $options Массив свойств запроса
      *
-     * @return AbstractRequestBuilder
+     * @return AbstractRequestBuilder Инстанс собранного запроса
      */
     public function setOptions($options)
     {

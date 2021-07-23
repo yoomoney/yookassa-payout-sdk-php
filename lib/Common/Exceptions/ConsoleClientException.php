@@ -30,7 +30,7 @@ use Exception;
 
 /**
  * Class ConsoleClientException
- * @package YooKassaPayout\Common\Exceptions
+ * @package YooKassaPayout
  */
 class ConsoleClientException extends Exception
 {

@@ -28,7 +28,7 @@ namespace YooKassaPayout\Common\Exceptions;
 
 /**
  * Class AuthorizeException
- * @package YooKassaPayout\Common\Exceptions
+ * @package YooKassaPayout
  */
 class AuthorizeException extends ApiException
 {

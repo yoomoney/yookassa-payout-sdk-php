@@ -28,23 +28,24 @@ namespace YooKassaPayout\Common\Exceptions;
 
 /**
  * Class InvalidPropertyValueTypeException
- * @package YooKassaPayout\Common\Exceptions
+ * @package YooKassaPayout
  */
 class InvalidPropertyValueTypeException extends InvalidPropertyException
 {
     /**
+     * Тип данных
      * @var string
      */
     private $type;
 
     /**
      * InvalidPropertyValueTypeException constructor.
-     * @param string $message
-     * @param int $code
-     * @param string $property
-     * @param mixed $value
+     * @param string $message Сообщение об ошибке
+     * @param int $code Код ошибки
+     * @param string $property Название свойства
+     * @param mixed $value Значение свойства
      */
-    public function __construct($message = "", $code = 0, $property = "", $value = null)
+    public function __construct($message = '', $code = 0, $property = '', $value = null)
     {
         parent::__construct($message, $code, $property);
         if ($value === null) {
@@ -57,7 +58,8 @@ class InvalidPropertyValueTypeException extends InvalidPropertyException
     }
 
     /**
-     * @return string
+     * Возвращает тип данных
+     * @return string Тип данных
      */
     public function getType()
     {

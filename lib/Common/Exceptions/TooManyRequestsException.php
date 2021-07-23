@@ -28,14 +28,23 @@ namespace YooKassaPayout\Common\Exceptions;
 
 /**
  * Class TooManyRequestsException
- * @package YooKassaPayout\Common\Exceptions
+ * @package YooKassaPayout
  */
 class TooManyRequestsException extends ApiException
 {
+    /**
+     * Код ошибки
+     */
     const HTTP_CODE = 429;
 
+    /**
+     * Тип ошибки
+     * @var mixed
+     */
     public $type;
-
+    /**
+     * @var mixed
+     */
     public $retryAfter;
 
     public function __construct($responseHeaders = [], $responseBody = null)

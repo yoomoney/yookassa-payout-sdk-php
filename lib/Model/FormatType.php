@@ -31,11 +31,17 @@ use YooKassaPayout\Common\AbstractEnum;
 /**
  * FormatType - формат запроса
  *
- * @package YooKassaPayout\Model
+ * @package YooKassaPayout
  */
 class FormatType extends AbstractEnum
 {
+    /**
+     * Формат json
+     */
     const JSON = 'json';
+    /**
+     * Формат xml
+     */
     const XML  = 'xml';
 
     protected static $validValues = [

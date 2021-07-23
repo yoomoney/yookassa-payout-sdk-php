@@ -32,15 +32,18 @@ use YooKassaPayout\Model\Recipient\BaseRecipient;
 use YooKassaPayout\Request\AbstractRequest;
 
 /**
- * Class DepositionRequestSerializer
+ * Класс для преобразования запроса выплаты в массив
  *
- * @package YooKassaPayout\Request\Serializers
+ * @package YooKassaPayout
  */
 class DepositionRequestSerializer extends AbstractRequestSerializer
 {
     /**
-     * @param AbstractRequest $request
-     * @return array
+     * Формирует массив из запроса
+     *
+     * @param AbstractRequest $request Запрос
+     *
+     * @return array Массив параметров
      */
     public function serialize(AbstractRequest $request)
     {
@@ -60,7 +63,10 @@ class DepositionRequestSerializer extends AbstractRequestSerializer
     }
 
     /**
-     * @param $paymentParams
+     * Формирует платежные параметры
+     *
+     * @param BaseRecipient|array $paymentParams Платежные параметры
+     *
      * @return array
      */
     public function serializePaymentParams($paymentParams)

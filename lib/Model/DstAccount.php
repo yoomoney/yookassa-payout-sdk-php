@@ -31,16 +31,18 @@ use YooKassaPayout\Common\AbstractEnum;
 
 /**
  * DstAccount - Идентификатор получателя перевода. Зависит от того, куда вы отправляете перевод.
- * |Код|Описание|
- * --- | ---
- * |BANK_CARD|перевод на банковскую карту|
- * |BANK_ACCOUNT|перевод на банковский счет|
  *
- * @package YooKassaPayout\Model
+ * @package YooKassaPayout
  */
 class DstAccount extends AbstractEnum
 {
+    /**
+     * Перевод на банковскую карту
+     */
     const BANK_ACCOUNT = '2570066962077';
+    /**
+     * Перевод на банковский счет
+     */
     const BANK_CARD    = '25700130535186';
 
     protected static $validValues = [

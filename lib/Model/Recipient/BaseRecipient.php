@@ -36,69 +36,72 @@ use YooKassaPayout\Common\Helpers\TypeCast;
 /**
  * Класс для построения параметров получателя при выплате на моб.телефон, затем можно передать в setPaymentParams() у (Make|Test)DepositionRequest
  *
- * @example
- * <code>
- *  <?php
- *      $recipient = new BaseRecipient();
- *      $recipient->setPofOfferAccepted(true);
+ * @example 02-deposition.php 10 16 Выплата на мобильный телефон
  *
- *      $depositionRequest = new MakeDepositionRequest();
- *      $depositionRequest->setPaymentParams($recipient);
- * </code>
- *
- * @package YooKassaPayout\Model\Recipient
+ * @package YooKassaPayout
  */
 class BaseRecipient
 {
 
     /**
-     * @var
+     * Подтверждение принятия оферты пользователем
+     * @var int
      */
     protected $pofOfferAccepted;
     
     /**
-     * @var
+     * Фамилия
+     * @var string
      */
     protected $pdrLastName;
 
     /**
-     * @var
+     * Имя
+     * @var string
      */
     protected $pdrFirstName;
 
     /**
-     * @var
+     * Отчество
+     * @var string
      */
     protected $pdrMiddleName;
 
     /**
-     * @var
+     * Дата рождения в формате ДД.ММ.ГГГГ
+     * @var string
      */
     protected $pdrBirthDate;
 
     /**
-     * @var
+     * Серия и номер паспорта гражданина РФ (без пробелов)
+     * @var int|string
      */
     protected $pdrDocNumber;
 
     /**
-     * @var
+     * Адрес получателя платежа
+     * @var string
      */
     protected $pdrAddress;
 
     /**
-     * @var
+     * Дата выдачи паспорта в формате ДД.ММ.ГГГГ
+     * @var string
      */
     protected $pdrDocIssueDate;
 
     /**
-     * @var
+     * Номер телефона в международном формате
+     * @var int|string
      */
     protected $smsPhoneNumber;
 
     /**
-     * @param bool $value
+     * Устанавливает подтверждение принятия оферты пользователем
+     * @param bool $value Подтверждение принятия оферты пользователем
      * @return $this
+     * @throws InvalidPropertyValueTypeException Выбрасывается, если данные неправильного типа
      */
     public function setPofOfferAccepted($value)
     {
@@ -110,7 +113,8 @@ class BaseRecipient
     }
 
     /**
-     * @return mixed
+     * Получает подтверждение принятия оферты пользователем
+     * @return int Подтверждение принятия оферты пользователем
      */
     public function getPofOfferAccepted()
     {
@@ -118,8 +122,10 @@ class BaseRecipient
     }
 
     /**
-     * @param $value
+     * Устанавливает фамилию
+     * @param string $value Фамилия
      * @return $this
+     * @throws InvalidPropertyValueTypeException Выбрасывается, если данные неправильного типа
      */
     public function setPdrLastName($value)
     {
@@ -132,7 +138,8 @@ class BaseRecipient
     }
 
     /**
-     * @return mixed
+     * Возвращает фамилию
+     * @return string Фамилия
      */
     public function getPdrLastName()
     {
@@ -140,8 +147,10 @@ class BaseRecipient
     }
 
     /**
-     * @param $value
+     * Устанавливает имя
+     * @param string $value Имя
      * @return $this
+     * @throws InvalidPropertyValueTypeException Выбрасывается, если данные неправильного типа
      */
     public function setPdrFirstName($value)
     {
@@ -154,7 +163,8 @@ class BaseRecipient
     }
 
     /**
-     * @return mixed
+     * Возвращает имя
+     * @return string Имя
      */
     public function getPdrFirstName()
     {
@@ -162,8 +172,10 @@ class BaseRecipient
     }
 
     /**
-     * @param $value
+     * Устанавливает отчество
+     * @param string $value Отчество
      * @return $this
+     * @throws InvalidPropertyValueTypeException Выбрасывается, если данные неправильного типа
      */
     public function setPdrMiddleName($value)
     {
@@ -176,7 +188,8 @@ class BaseRecipient
     }
 
     /**
-     * @return mixed
+     * Возвращает отчество
+     * @return string Отчество
      */
     public function getPdrMiddleName()
     {
@@ -184,9 +197,12 @@ class BaseRecipient
     }
 
     /**
-     * @param $value
+     * Устанавливает дату рождения
+     * @param string $value Дата рождения
      * @return $this
-     * @throws Exception
+     * @throws InvalidPropertyValueTypeException Выбрасывается, если данные неправильного типа
+     * @throws InvalidPropertyValueException Выбрасывается, если данные не удовлетворяют условию
+     * @throws Exception Выбрасывается, если произошла ошибка работы с датой
      */
     public function setPdrBirthDate($value)
     {
@@ -204,7 +220,8 @@ class BaseRecipient
     }
 
     /**
-     * @return mixed
+     * Возвращает дату рождения
+     * @return string Дата рождения
      */
     public function getPdrBirthDate()
     {
@@ -212,8 +229,10 @@ class BaseRecipient
     }
 
     /**
-     * @param $value
+     * Устанавливает серию и номер паспорта гражданина РФ
+     * @param int|string $value Серия и номер паспорта гражданина РФ
      * @return $this
+     * @throws InvalidPropertyValueTypeException Выбрасывается, если данные неправильного типа
      */
     public function setDocNumber($value)
     {
@@ -226,17 +245,19 @@ class BaseRecipient
     }
 
     /**
-     * @return mixed
+     * Возвращает серию и номер паспорта гражданина РФ
+     * @return string Серия и номер паспорта гражданина РФ
      */
     public function getPdrDocNumber()
     {
         return $this->pdrDocNumber;
     }
 
-
     /**
-     * @param $value
+     * Устанавливает адрес получателя платежа
+     * @param string $value Адрес получателя платежа
      * @return $this
+     * @throws InvalidPropertyValueTypeException Выбрасывается, если данные неправильного типа
      */
     public function setPdrAddress($value)
     {
@@ -249,7 +270,8 @@ class BaseRecipient
     }
 
     /**
-     * @return mixed
+     * Возвращает адрес получателя платежа
+     * @return string Адрес получателя платежа
      */
     public function getPdrAddress()
     {
@@ -257,9 +279,12 @@ class BaseRecipient
     }
 
     /**
-     * @param $value
+     * Устанавливает дата выдачи паспорта
+     * @param string $value Дата выдачи паспорта
      * @return $this
-     * @throws Exception
+     * @throws InvalidPropertyValueTypeException Выбрасывается, если данные неправильного типа
+     * @throws InvalidPropertyValueException Выбрасывается, если данные не удовлетворяют условию
+     * @throws Exception Выбрасывается, если произошла ошибка работы с датой
      */
     public function setPdrDocIssueDate($value)
     {
@@ -277,7 +302,8 @@ class BaseRecipient
     }
 
     /**
-     * @return mixed
+     * Возвращает дату выдачи паспорта
+     * @return string Дата выдачи паспорта
      */
     public function getPdrDocIssueDate()
     {
@@ -285,8 +311,10 @@ class BaseRecipient
     }
 
     /**
-     * @param $value
+     * Устанавливает номер телефона
+     * @param int|string $value Номер телефона
      * @return $this
+     * @throws InvalidPropertyValueTypeException Выбрасывается, если данные неправильного типа
      */
     public function setSmsPhoneNumber($value)
     {
@@ -299,13 +327,18 @@ class BaseRecipient
     }
 
     /**
-     * @return  mixed
+     * Возвращает номер телефона
+     * @return string Номер телефона
      */
     public function getSmsPhoneNumber()
     {
         return $this->smsPhoneNumber;
     }
 
+    /**
+     * Возвращает данные объекта в виде массива параметров
+     * @return array Данные объекта в виде массива параметров
+     */
     public function toArray()
     {
         return [

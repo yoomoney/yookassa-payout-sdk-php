@@ -27,12 +27,17 @@
 namespace YooKassaPayout\Common\Helpers;
 
 /**
- * Class RawHeadersParser
+ * Класс для работы с заголовками HTTP ответа
  *
- * @package YooKassaPayout\Common\Helpers
+ * @package YooKassaPayout
  */
 class RawHeadersParser
 {
+    /**
+     * Разбирает строку заголовков в массив
+     * @param string $rawHeaders Строка заголовков ответа
+     * @return array массив заголовков ответа
+     */
     public static function parse($rawHeaders)
     {
         $headers = [];

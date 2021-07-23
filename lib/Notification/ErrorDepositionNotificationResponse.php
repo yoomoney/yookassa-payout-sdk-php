@@ -16,14 +16,9 @@ use YooKassaPayout\Request\Keychain;
 /**
  * Класс для создания ответа на errorDepositionNotification
  *
- * @example
- * <code>
- *  <?php
- *      $response = new ErrorDepositionNotificationResponse($clientOrderId, $status);
- *      return $response->build($keychain);
- * </code>
+ * @example 03-notification.php 3 15 Обработка уведомления об ошибке
  *
- * @package YooKassaPayout\Notification
+ * @package YooKassaPayout
  */
 class ErrorDepositionNotificationResponse
 {
@@ -33,20 +28,30 @@ class ErrorDepositionNotificationResponse
     const RESPONSE_TAG = 'errorDepositionNotificationResponse';
 
     /**
+     * Копия параметра clientOrderId запроса
      * @var string
      */
     protected $clientOrderId;
 
     /**
-     * @var string
+     * Результат выполнения операции
+     * @var int|string
      */
     protected $status;
 
     /**
+     * Время обработки запроса по часам ЮKassa
      * @var string
      */
     protected $processedDT;
 
+    /**
+     * ErrorDepositionNotificationResponse constructor.
+     *
+     * @param string $clientOrderId Копия параметра clientOrderId запроса
+     * @param int|string $status Результат выполнения операции
+     * @param string $processedDT Время обработки запроса по часам ЮKassa
+     */
     public function __construct($clientOrderId, $status, $processedDT = '')
     {
         if (!$processedDT) {
@@ -59,7 +64,10 @@ class ErrorDepositionNotificationResponse
     }
 
     /**
-     * @param string $clientOrderId
+     * Устанавливает идентификатор операции
+     *
+     * @param string $clientOrderId Копия параметра clientOrderId запроса
+     *
      * @return $this
      */
     public function setClientOrderId($clientOrderId)
@@ -72,7 +80,9 @@ class ErrorDepositionNotificationResponse
     }
 
     /**
-     * @return string
+     * Возвращает идентификатор операции
+     *
+     * @return string Идентификатор операции
      */
     public function getClientOrderId()
     {
@@ -80,7 +90,10 @@ class ErrorDepositionNotificationResponse
     }
 
     /**
-     * @param string $status
+     * Устанавливает результат выполнения операции
+     *
+     * @param string $status Результат выполнения операции
+     *
      * @return $this
      */
     public function setStatus($status)
@@ -93,7 +106,9 @@ class ErrorDepositionNotificationResponse
     }
 
     /**
-     * @return string
+     * Возвращает результат выполнения операции
+     *
+     * @return string Результат выполнения операции
      */
     public function getStatus()
     {
@@ -101,8 +116,12 @@ class ErrorDepositionNotificationResponse
     }
 
     /**
-     * @param string $processedDT
+     * Устанавливает время обработки запроса по часам ЮKassa
+     *
+     * @param string $processedDT Время обработки запроса по часам ЮKassa
+     *
      * @return $this
+     * @throws InvalidPropertyValueTypeException Выбрасывается, если данные неправильного типа
      */
     public function setProcessedDT($processedDT)
     {
@@ -114,7 +133,9 @@ class ErrorDepositionNotificationResponse
     }
 
     /**
-     * @return string
+     * Возвращает время обработки запроса по часам ЮKassa
+     *
+     * @return string Время обработки запроса по часам ЮKassa
      */
     public function getProcessedDT()
     {
@@ -124,10 +145,11 @@ class ErrorDepositionNotificationResponse
     /**
      * Строит ответ на запрос, упаковывает его в PKCS#7 пакет.
      *
-     * @param Keychain $keychain
-     * @return string
-     * @throws OpenSSLException
-     * @throws XmlException
+     * @param Keychain $keychain Объект с ключами
+     *
+     * @return string Ответ для ЮKassa
+     * @throws OpenSSLException Выбрасывается при ошибке работы с OpenSSL
+     * @throws XmlException Выбрасывается при ошибке работы с XML
      */
     public function build(Keychain $keychain)
     {
@@ -135,8 +157,10 @@ class ErrorDepositionNotificationResponse
     }
 
     /**
-     * @return mixed
-     * @throws XmlException
+     * Создает XML документ из объекта
+     *
+     * @return string
+     * @throws XmlException Выбрасывается при ошибке работы с XML
      */
     private function buildXml()
     {

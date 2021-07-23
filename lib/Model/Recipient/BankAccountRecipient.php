@@ -29,47 +29,54 @@ namespace YooKassaPayout\Model\Recipient;
 
 use Exception;
 use YooKassaPayout\Common\Exceptions\InvalidPropertyValueTypeException;
-use YooKassaPayout\Common\Helpers\Parser;
+use YooKassaPayout\Common\Helpers\DateParser;
 use YooKassaPayout\Common\Helpers\TypeCast;
 
 /**
  * Класс для построения параметров получателя при выплате на банковский счет, затем можно передать в setPaymentParams() у (Make|Test)DepositionRequest
  *
- * @example
- * <code>
- *  <?php
- *      $recipient = new BankAccountRecipient();
- *      $recipient->setBankCity('bank city')
- *                ->setBankName('bank name')
- *                ->setBankBIK('999999999')
- *                ->setPaymentPurpose('payment purpose 74')
- *                ->setBankCorAccount('11111111111111111111')
- *                ->setPofOfferAccepted(true)
- *                ->setPdrDocIssueDate('05.05.2019')
- *                ->setCustAccount('11111111111111111111')
- *                ->setPdrMiddleName('Владимирович')
- *                ->setPdrLastName('Владимиров')
- *                ->setPdrFirstName('Владимир')
- *                ->setPdrBirthDate('05.05.1990')
- *                ->setPdrAddress('пос. Большие Васюки, ул. Комиссара Козявкина, д. 4')
- *                ->setDocNumber('4002109067')
- *                ->setSmsPhoneNumber('79000000000');
+ * @example 02-deposition.php 62 27 Выплата на банковский счет
  *
- *      $depositionRequest = new MakeDepositionRequest();
- *      $depositionRequest->setPaymentParams($recipient);
- * </code>
- *
- * @package YooKassaPayout\Model\Recipient
+ * @package YooKassaPayout
  */
 class BankAccountRecipient extends BaseRecipient
 {
+    /**
+     * Номер банковского счета получателя
+     * @var int|string
+     */
     protected $custAccount;
+    /**
+     * БИК банка
+     * @var int|string
+     */
     protected $bankBIK;
+    /**
+     * Назначение платежа или иные сведения для банка
+     * @var string
+     */
     protected $paymentPurpose;
+    /**
+     * Наименование банка
+     * @var string
+     */
     protected $bankName;
+    /**
+     * Город, в котором находится отделение банка
+     * @var string
+     */
     protected $bankCity;
+    /**
+     * Корреспондентский счет отделения банка
+     * @var int|string
+     */
     protected $bankCorAccount;
 
+    /**
+     * Устанавливает номер банковского счета получателя
+     * @param int|string $value Номер банковского счета получателя
+     * @return $this
+     */
     public function setCustAccount($value)
     {
         if (!TypeCast::canCastToString($value)) {
@@ -80,11 +87,20 @@ class BankAccountRecipient extends BaseRecipient
         return $this;
     }
 
+    /**
+     * Возвращает номер банковского счета получателя
+     * @return int|string Номер банковского счета получателя
+     */
     public function getCustAccount()
     {
         return $this->custAccount;
     }
 
+    /**
+     * Устанавливает БИК банка
+     * @param int|string $value БИК банка
+     * @return $this
+     */
     public function setBankBIK($value)
     {
         if (!TypeCast::canCastToString($value)) {
@@ -96,13 +112,19 @@ class BankAccountRecipient extends BaseRecipient
     }
 
     /**
-     * @return mixed
+     * Возвращает БИК банка
+     * @return string БИК банка
      */
     public function getBankBIK()
     {
         return $this->bankBIK;
     }
 
+    /**
+     * Устанавливает назначение платежа или иные сведения для банка
+     * @param string $value Назначение платежа или иные сведения для банка
+     * @return $this
+     */
     public function setPaymentPurpose($value)
     {
         if (!TypeCast::canCastToString($value)) {
@@ -114,13 +136,19 @@ class BankAccountRecipient extends BaseRecipient
     }
 
     /**
-     * @return mixed
+     * Возвращает назначение платежа или иные сведения для банка
+     * @return string Назначение платежа или иные сведения для банка
      */
     public function getPaymentPurpose()
     {
         return $this->paymentPurpose;
     }
 
+    /**
+     * Устанавливает наименование банка
+     * @param string $value Наименование банка
+     * @return $this
+     */
     public function setBankName($value)
     {
         if (!TypeCast::canCastToString($value)) {
@@ -132,13 +160,19 @@ class BankAccountRecipient extends BaseRecipient
     }
 
     /**
-     * @return mixed
+     * Возвращает наименование банка
+     * @return string Наименование банка
      */
     public function getBankName()
     {
         return $this->bankName;
     }
 
+    /**
+     * Устанавливает город, в котором находится отделение банка
+     * @param string $value Город, в котором находится отделение банка
+     * @return $this
+     */
     public function setBankCity($value)
     {
         if (!TypeCast::canCastToString($value)) {
@@ -150,13 +184,19 @@ class BankAccountRecipient extends BaseRecipient
     }
 
     /**
-     * @return mixed
+     * Возвращает город, в котором находится отделение банка
+     * @return string Город, в котором находится отделение банка
      */
     public function getBankCity()
     {
         return $this->bankCity;
     }
 
+    /**
+     * Устанавливает корреспондентский счет отделения банка
+     * @param int|string $value Корреспондентский счет отделения банка
+     * @return $this
+     */
     public function setBankCorAccount($value)
     {
         if (!TypeCast::canCastToString($value)) {
@@ -168,7 +208,8 @@ class BankAccountRecipient extends BaseRecipient
     }
 
     /**
-     * @return mixed
+     * Возвращает Корреспондентский счет отделения банка
+     * @return string Корреспондентский счет отделения банка
      */
     public function getBankCorAccount()
     {
@@ -176,13 +217,12 @@ class BankAccountRecipient extends BaseRecipient
     }
 
     /**
-     * @return array
-     * @throws Exception
+     * @inheritdoc Описание из родительского класса
      */
     public function toArray()
     {
         $baseRecipient = parent::toArray();
-        $date = Parser::parseDateToIssueDate($this->getPdrDocIssueDate());
+        $date = DateParser::parseDateToIssueDate($this->getPdrDocIssueDate());
 
         $accountRecipient = [
             'CustAccount'       => $this->getCustAccount(),

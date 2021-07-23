@@ -30,7 +30,7 @@ use Exception;
 
 /**
  * Class SaveFileException
- * @package YooKassaPayout\Common\Exceptions
+ * @package YooKassaPayout
  */
 class SaveFileException extends Exception
 {

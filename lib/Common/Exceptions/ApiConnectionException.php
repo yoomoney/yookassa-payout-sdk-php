@@ -28,7 +28,7 @@ namespace YooKassaPayout\Common\Exceptions;
 
 /**
  * Class ApiConnectionException
- * @package YooKassaPayout\Common\Exceptions
+ * @package YooKassaPayout
  */
 class ApiConnectionException extends ApiException
 {

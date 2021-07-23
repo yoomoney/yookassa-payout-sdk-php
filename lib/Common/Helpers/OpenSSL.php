@@ -33,7 +33,7 @@ use YooKassaPayout\Request\Keychain;
 /**
  * Класс используется для упаковки данных в PKCS#7 и их распаковки.
  *
- * @package YooKassaPayout\Common\Helpers
+ * @package YooKassaPayout
  */
 class OpenSSL
 {
@@ -45,27 +45,27 @@ class OpenSSL
 
     /**
      * Подписывает и возвращает данные запакованные в PKCS#7
-     * @param $data
-     * @param Keychain $keychain
-     * @return string
-     * @throws OpenSSLException
+     * @param string $data Данные для шифрования
+     * @param Keychain $keychain Объект с ключами
+     * @return string Запакованная строка
+     * @throws OpenSSLException Выбрасывается при ошибке работы с OpenSSL
      */
     public static function encryptPKCS7($data, Keychain $keychain)
     {
-        $cmd     = 'openssl smime -sign -signer ' . $keychain->getPublicCert()
-            . ' -inkey ' . $keychain->getPrivateKey()
-            . ' -passin pass:' . $keychain->getKeyPassword() . ''
-            . ' -nochain -nocerts -outform PEM -nodetach';
+        $cmd = 'openssl smime -sign -signer ' . $keychain->getPublicCert()
+             . ' -inkey ' . $keychain->getPrivateKey()
+             . ' -passin pass:' . $keychain->getKeyPassword() . ''
+             . ' -nochain -nocerts -outform PEM -nodetach';
 
         return self::executeCMD($cmd, $data);
     }
 
     /**
      * Проверяет подпись и возвращает содержимое пакета
-     * @param $data
-     * @param $CAcert
-     * @return string
-     * @throws OpenSSLException
+     * @param string $data Зашифрованные данные
+     * @param string $CAcert Путь к сертификату для распаковки
+     * @return string Расшифрованные данные
+     * @throws OpenSSLException Выбрасывается при ошибке работы с OpenSSL
      */
     public static function decryptPKCS7($data, $CAcert = null)
     {
@@ -77,10 +77,10 @@ class OpenSSL
 
     /**
      * Выполняет команду, направляет в поток ввода данные из $data
-     * @param $cmd
-     * @param $data
-     * @return false|string
-     * @throws OpenSSLException
+     * @param string $cmd Строка команды
+     * @param string $data Данные для обработки
+     * @return false|string Результат выполнения команды
+     * @throws OpenSSLException Выбрасывается при ошибке работы с OpenSSL
      */
     private static function executeCMD($cmd, $data)
     {
