@@ -36,31 +36,38 @@ use YooKassaPayout\Model\Organization;
 /**
  * Класс для генерации csr запроса и ключей
  *
- * @package YooKassaPayout\Common\Helpers
+ * @example 04-generate-csr.php 3 23 Генерация ключей и создание запроса
+ *
+ * @package YooKassaPayout
  */
 class GeneratorCsr
 {
     /**
+     * Название файла закрытого ключа
      * @const string
      */
     const OUTPUT_PRIVATE_KEY_FILENAME = 'privateKey.pem';
 
     /**
+     * Название файла запроса сертификата
      * @const string
      */
     const OUTPUT_REQUEST_CSR_FILENAME = 'request.csr';
 
     /**
+     * Название файла подписи
      * @const string
      */
     const OUTPUT_SIGNATURE_FILENAME = 'signature.txt';
 
     /**
+     * Пароль для закрытого ключа
      * @var string
      */
     protected $privateKeyPassword;
 
     /**
+     * Информация об организации
      * @var Organization
      */
     protected $organizationInfo;
@@ -71,21 +78,25 @@ class GeneratorCsr
     protected $output;
 
     /**
-     * @var string
+     * Закрытый ключ
+     * @var \OpenSSLAsymmetricKey|resource
      */
     protected $privateKey;
 
     /**
-     * @var string
+     * Запрос на сертификат
+     * @var resource
      */
     protected $csrRequest;
 
     /**
+     * Цифровая подпись
      * @var string
      */
     protected $signature;
 
     /**
+     * Настройки OpenSSL по умолчанию
      * @var array
      */
     public $config = [
@@ -95,6 +106,12 @@ class GeneratorCsr
         "private_key_type" => OPENSSL_KEYTYPE_RSA,
     ];
 
+    /**
+     * GeneratorCsr constructor.
+     * @param Organization|array $organizationInfo Информация об организации
+     * @param string $output Путь к директории для сгенерированных файлов
+     * @param string $privateKeyPassword Пароль для закрытого ключа
+     */
     public function __construct($organizationInfo, $output = __DIR__, $privateKeyPassword = '')
     {
         if (!TypeCast::canCastToString($privateKeyPassword)) {
@@ -128,7 +145,8 @@ class GeneratorCsr
     }
 
     /**
-     * @param $config
+     * Устанавливает настройки OpenSSL
+     * @param array $config Настройки OpenSSL
      */
     public function setConfig($config)
     {
@@ -139,7 +157,8 @@ class GeneratorCsr
     }
 
     /**
-     * @return array
+     * Возвращает настройки OpenSSL
+     * @return array Настройки OpenSSL
      */
     public function getConfig()
     {
@@ -147,8 +166,9 @@ class GeneratorCsr
     }
 
     /**
+     * Проверяет данные организации
      * @param Organization $organizationInfo
-     * @throws EmptyPropertyValueException
+     * @throws EmptyPropertyValueException Выбрасывается, если заполнены не все обязательные поля
      * @return bool
      */
     public function validateOrganization($organizationInfo)
@@ -173,10 +193,11 @@ class GeneratorCsr
     }
 
     /**
-     * @param null $privateKeyPath
-     * @return string|string[]
-     * @throws OpenSSLException
-     * @throws SaveFileException
+     * Генерирует пакет файлов для запроса сертификата
+     * @param string|null $privateKeyPath Путь к файлу закрытого ключа
+     * @return string|string[] Цифровая подпись
+     * @throws OpenSSLException Выбрасывается при ошибке работы с OpenSSL
+     * @throws SaveFileException Выбрасывается при ошибке сохранения файла
      */
     public function generate($privateKeyPath=null)
     {
@@ -191,7 +212,7 @@ class GeneratorCsr
         }
 
         if (empty($privateKeyPath)) {
-            openssl_pkey_export($this->privateKey, $privateKey, $this->privateKeyPassword);
+            openssl_pkey_export($this->privateKey, $privateKey, $this->privateKeyPassword, $this->config);
             $this->saveFile(self::OUTPUT_PRIVATE_KEY_FILENAME, $privateKey);
         }
 
@@ -204,13 +225,13 @@ class GeneratorCsr
 
         openssl_csr_export($this->csrRequest, $requestOut, false);
 
-        $requestOut = str_replace("\t", "", $requestOut);
+        $requestOut = str_replace("\t", '', $requestOut);
         preg_match('"Signature Algorithm: (.*)-----BEGIN"ims', $requestOut, $sign);
         if ($sign) {
             $sign = $sign[1];
             $a    = explode("\n", $sign);
             unset($a[0]);
-            $this->signature = str_replace("         ", "", trim(join("\n", $a)));
+            $this->signature = str_replace('         ', '', trim(join("\n", $a)));
         }
 
         $this->saveFile(self::OUTPUT_SIGNATURE_FILENAME, $this->signature);
@@ -219,9 +240,10 @@ class GeneratorCsr
     }
 
     /**
-     * @param $fileName
-     * @param $content
-     * @throws SaveFileException
+     * Сохраняет строку в файл
+     * @param string $fileName Имя файла
+     * @param string $content Строка для сохранения
+     * @throws SaveFileException Выбрасывается при ошибке сохранения файла
      */
     protected function saveFile($fileName, $content)
     {

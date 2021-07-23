@@ -8,7 +8,7 @@ use Exception;
 
 /**
  * Class XmlException
- * @package YooKassaPayout\Common\Exceptions
+ * @package YooKassaPayout
  */
 class XmlException extends Exception
 {

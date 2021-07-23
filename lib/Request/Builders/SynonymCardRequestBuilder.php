@@ -32,7 +32,7 @@ use YooKassaPayout\Request\SynonymCardRequest;
 /**
  * Класс для сборки запроса SynonymCardRequest из массива
  *
- * @package YooKassaPayout\Request\Builders
+ * @package YooKassaPayout
  */
 class SynonymCardRequestBuilder extends AbstractRequestBuilder
 {

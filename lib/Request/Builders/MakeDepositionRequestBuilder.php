@@ -32,13 +32,13 @@ use YooKassaPayout\Request\MakeDepositionRequest;
 /**
  * Класс для сборки запроса MakeDepositionRequest из массива
  *
- * @package YooKassaPayout\Request\Builders
+ * @package YooKassaPayout
  */
 class MakeDepositionRequestBuilder extends AbstractRequestBuilder
 {
     /**
      * MakeDepositionRequestBuilder constructor.
-     * @param null|string|int $clientOrderId
+     * @param null|string|int $clientOrderId Идентификатор операции
      */
     public function __construct($clientOrderId = null)
     {

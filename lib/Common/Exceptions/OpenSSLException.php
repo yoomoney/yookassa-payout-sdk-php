@@ -30,7 +30,7 @@ use Exception;
 
 /**
  * Class OpenSSLException
- * @package YooKassaPayout\Common\Exceptions
+ * @package YooKassaPayout
  */
 class OpenSSLException extends Exception
 {

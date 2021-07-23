@@ -30,10 +30,14 @@ use UnexpectedValueException;
 
 /**
  * Class JsonException
- * @package YooKassaPayout\Common\Exceptions
+ * @package YooKassaPayout
  */
 class JsonException extends UnexpectedValueException
 {
+    /**
+     * Маппинг кодов ошибок и их текстового представления
+     * @var string[]
+     */
     public static $errorLabels = [
         JSON_ERROR_NONE => 'No error',
         JSON_ERROR_DEPTH => 'Maximum stack depth exceeded',
@@ -43,7 +47,13 @@ class JsonException extends UnexpectedValueException
         JSON_ERROR_UTF8 => 'Malformed UTF-8 characters, possibly incorrectly encoded'
     ];
 
-    public function __construct($message = "", $code = 0, $previous = null)
+    /**
+     * JsonException constructor.
+     * @param string $message Текст ошибки
+     * @param int $code Код ошибки
+     * @param null $previous Предыдущее исключение
+     */
+    public function __construct($message = '', $code = 0, $previous = null)
     {
         $errorMsg = isset(self::$errorLabels[$code]) ? self::$errorLabels[$code] : 'Unknown error';
         $message = sprintf('%s %s', $message, $errorMsg);

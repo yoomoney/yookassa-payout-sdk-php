@@ -29,12 +29,19 @@ namespace YooKassaPayout\Model;
 /**
  * Класс позволяет получить дату в необходимом для выплаты формате
  *
- * @package YooKassaPayout\Model
+ * @package YooKassaPayout
  */
 class RequestDateTime
 {
+    /**
+     * Формат даты
+     */
     const REQUEST_DT_FORMAT = 'Y-m-d\TH:i:s.000\Z';
 
+    /**
+     * Возвращает текущую дату в заданном формате
+     * @return false|string Дата в заданном формате
+     */
     public static function getDateTime()
     {
         return date(self::REQUEST_DT_FORMAT);

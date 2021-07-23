@@ -37,29 +37,34 @@ use YooKassaPayout\Request\AbstractRequest;
 use YooKassaPayout\Request\Keychain;
 
 /**
- * Class BaseClient
+ * Базовый класс клиента API
  *
  * @package YooKassaPayout\Client
  */
 class BaseClient
 {
     /**
+     * Объект для логирования
      * @var LoggerInterface|null
      */
     protected $logger;
 
     /**
+     * Идентификатор контрагента
      * @var string
      */
     protected $agentId;
 
     /**
+     * Объект с ключами
      * @var Keychain
      */
     protected $keychain;
 
     /**
-     * @param LoggerInterface|null $logger
+     * Устанавливает объект для логирования
+     *
+     * @param LoggerInterface|null $logger Объект для логирования
      */
     public function setLogger($logger)
     {
@@ -67,7 +72,9 @@ class BaseClient
     }
 
     /**
-     * @return LoggerInterface | null
+     * Возвращает объект для логирования
+     *
+     * @return LoggerInterface|null Объект для логирования
      */
     public function getLogger()
     {
@@ -75,8 +82,10 @@ class BaseClient
     }
 
     /**
-     * @param string $id
-     * @return BaseClient
+     * Устанавливает идентификатор контрагента
+     *
+     * @param string $id Идентификатор контрагента
+     * @return BaseClient Объект клиента
      */
     public function setAgentId($id)
     {
@@ -88,7 +97,9 @@ class BaseClient
     }
 
     /**
-     * @return string
+     * Возвращает идентификатор контрагента
+     *
+     * @return string Идентификатор контрагента
      */
     public function getAgentId()
     {
@@ -96,7 +107,9 @@ class BaseClient
     }
 
     /**
-     * @return Keychain
+     * Возвращает объект, хранящий ключи
+     *
+     * @return Keychain Объект с ключами
      */
     public function getKeychain()
     {
@@ -104,10 +117,12 @@ class BaseClient
     }
 
     /**
-     * @param AbstractRequest $request
-     * @return bool|false|string
-     * @throws OpenSSLException
-     * @throws XmlException
+     * Формирует XML из запроса и шифрует его
+     *
+     * @param AbstractRequest $request Объект запроса
+     * @return bool|string Результат выполнения запроса
+     * @throws OpenSSLException Выбрасывается при ошибке работы с OpenSSL
+     * @throws XmlException Выбрасывается при ошибке работы с XML
      */
     protected function prepareXml($request)
     {
@@ -146,6 +161,14 @@ class BaseClient
         );
     }
 
+    /**
+     * Формирует JSON из запроса и шифрует его
+     *
+     * @deprecated Не реализован в текущей версии API
+     *
+     * @param AbstractRequest $request Объект запроса
+     * @return string Результат выполнения запроса
+     */
     protected function prepareJson($request)
     {
         return '';

@@ -30,29 +30,31 @@ use InvalidArgumentException;
 
 /**
  * Class InvalidPropertyException
- * @package YooKassaPayout\Common\Exceptions
+ * @package YooKassaPayout
  */
 class InvalidPropertyException extends InvalidArgumentException
 {
     /**
+     * Название свойства
      * @var string
      */
     private $propertyName;
 
     /**
      * InvalidValueException constructor.
-     * @param string $message
-     * @param int $code
-     * @param string $property
+     * @param string $message Сообщение об ошибке
+     * @param int $code Код ошибки
+     * @param string $property Название свойства
      */
-    public function __construct($message = "", $code = 0, $property = "")
+    public function __construct($message = '', $code = 0, $property = '')
     {
         parent::__construct($message, $code);
         $this->propertyName = (string)$property;
     }
 
     /**
-     * @return string
+     * Возвращает название свойства
+     * @return string Название свойства
      */
     public function getProperty()
     {

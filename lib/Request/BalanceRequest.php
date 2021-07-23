@@ -27,17 +27,18 @@
 namespace YooKassaPayout\Request;
 
 
+use YooKassaPayout\Request\Serializers\AbstractRequestSerializer;
 use YooKassaPayout\Request\Serializers\BalanceRequestSerializer;
 
 /**
  * Класс для создания запроса баланса
  *
- * @package YooKassaPayout\Request
+ * @package YooKassaPayout
  */
 class BalanceRequest extends AbstractRequest
 {
     /**
-     * @var string
+     * @inheritDoc
      */
     protected $requestName = 'balance';
 
@@ -50,7 +51,8 @@ class BalanceRequest extends AbstractRequest
     }
 
     /**
-     * @return Serializers\AbstractRequestSerializer|BalanceRequestSerializer
+     * Возвращает объект для преобразования запроса в массив
+     * @return AbstractRequestSerializer|BalanceRequestSerializer Объект для преобразования запроса в массив
      */
     public function getSerializer()
     {

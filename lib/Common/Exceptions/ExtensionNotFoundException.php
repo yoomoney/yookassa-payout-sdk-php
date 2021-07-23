@@ -30,15 +30,15 @@ use Exception;
 
 /**
  * Class ExtensionNotFoundException
- * @package YooKassaPayout\Common\Exceptions
+ * @package YooKassaPayout
  */
 class ExtensionNotFoundException extends Exception
 {
     /**
      * Constructor
      *
-     * @param string $name extension name
-     * @param int $code error code
+     * @param string $name Название расширения
+     * @param int $code Код ошибки
      */
 
     public function __construct($name, $code = 0)

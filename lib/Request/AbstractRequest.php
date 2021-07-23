@@ -34,45 +34,58 @@ use YooKassaPayout\Model\RequestDateTime;
 use YooKassaPayout\Request\Serializers\AbstractRequestSerializer;
 
 /**
- * Class AbstractRequest
+ * Абстрактный класс запроса
  *
- * @package YooKassaPayout\Request
+ * @package YooKassaPayout
  */
 abstract class AbstractRequest
 {
     /**
+     * Тип запроса
      * @var string
      */
     protected $requestName;
 
     /**
-     * @var AbstractRequest Инстанс собираемого запроса
+     * Инстанс собираемого запроса
+     * @var AbstractRequest
      */
     protected $currentObject;
 
     /**
-     * @var string Последняя ошибка валидации текущего запроса
+     * Последняя ошибка валидации текущего запроса
+     * @var string
      */
     private $_validationError;
 
     /**
+     * Формат запроса
      * @var FormatType
      */
     protected $formatType = FormatType::XML;
 
     /**
+     * Идентификатор операции
+     *
+     * Должен быть уникальным для контрагента на протяжении всей истории операций.
+     * Рекомендуемые значения: целое положительное число в десятичной системе счисления.
      * @var string
      */
     protected $clientOrderId;
 
     /**
+     * Дата и время формирования запроса операции на стороне и по часам контрагента.
      * @var DateTime
      */
     protected $requestDT;
 
+    /**
+     * AbstractRequest constructor.
+     * @param string|null $clientOrderId Идентификатор операции
+     */
     public function __construct($clientOrderId = null)
     {
-        $this->clientOrderId = $clientOrderId ? $clientOrderId : $this->getRandomId();
+        $this->clientOrderId = $clientOrderId ?: $this->getRandomId();
         $this->requestDT     = RequestDateTime::getDateTime();
     }
 
@@ -83,7 +96,8 @@ abstract class AbstractRequest
     abstract public function validate();
 
     /**
-     * @return AbstractRequestSerializer
+     * Возвращает объект для преобразования запроса в массив
+     * @return AbstractRequestSerializer Объект для преобразования запроса в массив
      */
     abstract public function getSerializer();
 
@@ -114,7 +128,8 @@ abstract class AbstractRequest
     }
 
     /**
-     * @param $value
+     * Устанавливает тип запроса
+     * @param string $value Тип запроса
      * @return $this
      */
     public function setRequestName($value)
@@ -128,7 +143,8 @@ abstract class AbstractRequest
     }
 
     /**
-     * @return string
+     * Возвращает тип запроса
+     * @return string Тип запроса
      */
     public function getRequestName()
     {
@@ -136,8 +152,8 @@ abstract class AbstractRequest
     }
 
     /**
-     * Устанавливает время запроса
-     * @param string $requestDT
+     * Устанавливает дату и время запроса
+     * @param string $requestDT Дата и время запроса
      * @return $this
      */
     public function setRequestDT($requestDT)
@@ -151,8 +167,8 @@ abstract class AbstractRequest
     }
 
     /**
-     * Возвращает установленое время запроса
-     * @return DateTime|string
+     * Возвращает установленные дату и время запроса
+     * @return DateTime|string Дата и время запроса
      */
     public function getRequestDT()
     {
@@ -160,7 +176,8 @@ abstract class AbstractRequest
     }
 
     /**
-     * @param string $clientOrderId
+     * Устанавливает идентификатор операции
+     * @param string $clientOrderId Идентификатор операции
      * @return $this
      */
     public function setClientOrderId($clientOrderId)
@@ -174,7 +191,8 @@ abstract class AbstractRequest
     }
 
     /**
-     * @return string
+     * Возвращает идентификатор операции
+     * @return string Идентификатор операции
      */
     public function getClientOrderId()
     {
@@ -183,7 +201,7 @@ abstract class AbstractRequest
 
     /**
      * Устанавливает формат запроса xml|json
-     * @param FormatType $type
+     * @param FormatType $type Формат запроса
      * @return $this
      */
     public function setFormatType(FormatType $type)
@@ -197,7 +215,7 @@ abstract class AbstractRequest
 
     /**
      * Возвращает формат запроса xml|json
-     * @return FormatType
+     * @return FormatType Формат запроса
      */
     public function getFormatType()
     {

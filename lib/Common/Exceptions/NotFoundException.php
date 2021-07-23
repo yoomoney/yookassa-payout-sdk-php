@@ -28,14 +28,22 @@ namespace YooKassaPayout\Common\Exceptions;
 
 /**
  * Class NotFoundException
- * @package YooKassaPayout\Common\Exceptions
+ * @package YooKassaPayout
  */
 class NotFoundException extends ApiException
 {
+    /**
+     * Код ошибки
+     */
     const HTTP_CODE = 404;
-
+    /**
+     * Тип ошибки
+     * @var mixed
+     */
     public $type;
-
+    /**
+     * @var mixed
+     */
     public $retryAfter;
 
     public function __construct($responseHeaders = [], $responseBody = null)

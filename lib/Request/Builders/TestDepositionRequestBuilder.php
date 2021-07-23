@@ -32,13 +32,13 @@ use YooKassaPayout\Request\TestDepositionRequest;
 /**
  * Класс для сборки запроса TestDepositionRequest из массива
  *
- * @package YooKassaPayout\Request\Builders
+ * @package YooKassaPayout
  */
 class TestDepositionRequestBuilder extends AbstractRequestBuilder
 {
     /**
      * TestDepositionRequestBuilder constructor.
-     * @param null|string|int $clientOrderId
+     * @param null|string|int $clientOrderId Идентификатор операции
      */
     public function __construct($clientOrderId = null)
     {

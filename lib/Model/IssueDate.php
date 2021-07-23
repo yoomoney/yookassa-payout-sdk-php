@@ -29,15 +29,38 @@ namespace YooKassaPayout\Model;
 /**
  * Класс для работы с датой
  *
- * @package YooKassaPayout\Model
+ * @package YooKassaPayout
  */
 class IssueDate
 {
+    /**
+     * Полная дата в формате дд.мм.гггг
+     * @var string
+     */
     protected $fullDate;
+    /**
+     * Год
+     * @var string
+     */
     protected $year;
+    /**
+     * Месяц
+     * @var string
+     */
     protected $month;
+    /**
+     * День
+     * @var string
+     */
     protected $day;
 
+    /**
+     * IssueDate constructor.
+     * @param string $fullDate Полная дата в формате дд.мм.гггг
+     * @param string $year Год
+     * @param string $month Месяц
+     * @param string $day День
+     */
     public function __construct($fullDate, $year, $month, $day)
     {
         $this->fullDate = $fullDate;
@@ -47,7 +70,8 @@ class IssueDate
     }
 
     /**
-     * @param mixed $fullDate
+     * Устанавливает полную дату в формате дд.мм.гггг
+     * @param string $fullDate Полная дата
      */
     public function setFullDate($fullDate)
     {
@@ -55,7 +79,8 @@ class IssueDate
     }
 
     /**
-     * @return mixed
+     * Возвращает полную дату в формате дд.мм.гггг
+     * @return string Полная дата
      */
     public function getFullDate()
     {
@@ -63,7 +88,8 @@ class IssueDate
     }
 
     /**
-     * @param mixed $year
+     * Устанавливает год
+     * @param string $year Год
      */
     public function setYear($year)
     {
@@ -71,7 +97,8 @@ class IssueDate
     }
 
     /**
-     * @return mixed
+     * Возвращает год
+     * @return string Год
      */
     public function getYear()
     {
@@ -79,7 +106,8 @@ class IssueDate
     }
 
     /**
-     * @param mixed $month
+     * Устанавливает месяц
+     * @param string $month Месяц
      */
     public function setMonth($month)
     {
@@ -87,7 +115,8 @@ class IssueDate
     }
 
     /**
-     * @return mixed
+     * Возвращает месяц
+     * @return string Месяц
      */
     public function getMonth()
     {
@@ -95,7 +124,8 @@ class IssueDate
     }
 
     /**
-     * @param mixed $day
+     * Устанавливает день
+     * @param string $day День
      */
     public function setDay($day)
     {
@@ -103,7 +133,8 @@ class IssueDate
     }
 
     /**
-     * @return mixed
+     * Возвращает день
+     * @return string День
      */
     public function getDay()
     {

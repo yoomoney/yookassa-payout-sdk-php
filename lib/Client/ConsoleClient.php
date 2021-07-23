@@ -38,7 +38,10 @@ use YooKassaPayout\Model\Organization;
  */
 class ConsoleClient
 {
-
+    /**
+     * Список доступных команд
+     * @var array
+     */
     private $commands = [
         'get:csr' => [
             'description' => 'генерация запроса на сертификат',
@@ -57,6 +60,10 @@ class ConsoleClient
         ],
     ];
 
+    /**
+     * Опросник для заполнения полей организации
+     * @var array[]
+     */
     private $organizationInfo = [
         'country name' => [
             'default' => 'RU',
@@ -97,7 +104,7 @@ class ConsoleClient
 
     /**
      * ConsoleClient constructor.
-     * @param array $arguments
+     * @param array $arguments Аргументы командной строки
      */
     public function __construct($arguments)
     {
@@ -106,9 +113,11 @@ class ConsoleClient
     }
 
     /**
-     * @param string $command
-     * @param array $arguments
-     * @return false|mixed
+     * Запускает работу консольной утилиты
+     *
+     * @param string $command Команда
+     * @param array $arguments Аргументы
+     * @return false|mixed Результат выполнения команды
      */
     private function run($command, $arguments)
     {
@@ -117,8 +126,10 @@ class ConsoleClient
     }
 
     /**
-     * @param array $arguments
-     * @return array
+     * Подготавливает аргументы утилиты
+     *
+     * @param array $arguments Входящие аргументы
+     * @return array Обработанные аргументы
      */
     private function parseArguments($arguments)
     {
@@ -143,9 +154,11 @@ class ConsoleClient
     }
 
     /**
-     * @param string $command
-     * @param array $arguments
-     * @return array
+     * Сортирует аргументы в заданном порядке
+     *
+     * @param string $command Команда
+     * @param array $arguments Входящие аргументы
+     * @return array Отсортированные аргументы
      */
     private function sortArguments($command, $arguments)
     {
@@ -161,9 +174,11 @@ class ConsoleClient
     }
 
     /**
-     * @param string $paramName
-     * @param array $options
-     * @return string
+     * Формирует строку вопроса для генератора
+     *
+     * @param string $paramName Название параметра
+     * @param array $options Опции параметра
+     * @return string Строка вопроса
      */
     private function buildQuestion($paramName, $options) {
         $question = "$paramName";
@@ -181,8 +196,10 @@ class ConsoleClient
     }
 
     /**
-     * @param string $name
-     * @return string
+     * Получает имя метода сеттера по имени параметра
+     *
+     * @param string $name Имя параметра
+     * @return string Строка названия метода
      */
     private function getSetterByParameterName($name) {
         $parts = explode(' ', $name);
@@ -196,8 +213,8 @@ class ConsoleClient
     /**
      * Команда, генерирующая CSR и ключи
      *
-     * @param string|null $privateKeyPath
-     * @param string|null $sslConf
+     * @param string|null $privateKeyPath Путь к защищенному ключу
+     * @param string|null $sslConf Путь к настройкам SSL
      */
     public function getCsrCommand($privateKeyPath=null, $sslConf=null)
     {

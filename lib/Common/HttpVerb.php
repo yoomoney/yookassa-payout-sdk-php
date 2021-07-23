@@ -27,9 +27,9 @@
 namespace YooKassaPayout\Common;
 
 /**
- * Class HttpVerb
+ * Класс описывает возможные типы HTTP запросов
  *
- * @package YooKassaPayout\Common
+ * @package YooKassaPayout
  */
 class HttpVerb extends AbstractEnum
 {

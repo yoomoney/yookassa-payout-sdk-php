@@ -30,34 +30,39 @@ use YooKassaPayout\Common\Exceptions\InvalidPropertyValueTypeException;
 use YooKassaPayout\Common\Helpers\TypeCast;
 
 /**
- * Class CurlConfiguration
+ * Класс конфигурации CURL
  *
- * @package YooKassaPayout\Client
+ * @package YooKassaPayout
  */
 class CurlConfiguration
 {
     /**
-     * @var
+     * Прокси
+     * @var string
      */
     private $proxy;
 
     /**
+     * Таймаут соединения
      * @var int
      */
     private $connectionTimeout = 1000;
 
     /**
+     * Количество попыток соединения
      * @var int
      */
     protected $attempts = 7;
 
     /**
+     * Таймаут между попытками соединения
      * @var int
      */
     protected $timeout = 1000;
 
     /**
-     * @param string $proxy
+     * Устанавливает прокси
+     * @param string $proxy Прокси
      */
     public function setProxy($proxy)
     {
@@ -68,7 +73,8 @@ class CurlConfiguration
     }
 
     /**
-     * @return string
+     * Возвращает прокси
+     * @return string Прокси
      */
     public function getProxy()
     {
@@ -76,7 +82,8 @@ class CurlConfiguration
     }
 
     /**
-     * @param int $connectionTimeout
+     * Устанавливает таймаут соединения
+     * @param int $connectionTimeout Таймаут соединения
      */
     public function setConnectionTimeout($connectionTimeout)
     {
@@ -92,7 +99,8 @@ class CurlConfiguration
     }
 
     /**
-     * @return int
+     * Возвращает таймаут соединения
+     * @return int Таймаут соединения
      */
     public function getConnectionTimeout()
     {
@@ -100,7 +108,8 @@ class CurlConfiguration
     }
 
     /**
-     * @param int $attempts
+     * Устанавливает количество попыток соединения
+     * @param int $attempts Количество попыток соединения
      */
     public function setAttempts($attempts)
     {
@@ -116,7 +125,8 @@ class CurlConfiguration
     }
 
     /**
-     * @return int
+     * Возвращает количество попыток соединения
+     * @return int Количество попыток соединения
      */
     public function getAttempts()
     {
@@ -124,7 +134,8 @@ class CurlConfiguration
     }
 
     /**
-     * @param int $timeout
+     * Устанавливает таймаут между попытками соединения
+     * @param int $timeout Таймаут между попытками соединения
      */
     public function setTimeout($timeout)
     {
@@ -140,7 +151,8 @@ class CurlConfiguration
     }
 
     /**
-     * @return int
+     * Возвращает таймаут между попытками соединения
+     * @return int Таймаут между попытками соединения
      */
     public function getTimeout()
     {

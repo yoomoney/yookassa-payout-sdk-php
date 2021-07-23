@@ -34,28 +34,67 @@ use YooKassaPayout\Common\Helpers\TypeCast;
 /**
  * Класс для построения данных организации при генерации запроса на сертификат
  *
- * @example
- * <code>
- *  <?php
- *      $organization = new Organization();
- *      $organization->setEmailAddress('predpriyatie@yoomoney.ru')
- *                   ->setOrganizationName('OOO Predpriyatie')
- *                   ->setCommonName('/business/predpriyatie');
- *      $signature = $client->createCsr($organization, 'path/to/output/dir', 'password_for_private_key');
- * </code>
+ * @example 04-generate-csr.php 3 23 Генерация ключей и создание запроса
  *
- * @package YooKassaPayout\Model
+ * @package YooKassaPayout
  */
 class Organization
 {
+    /**
+     * Код страны
+     *
+     * Пример: RU
+     * @var string
+     */
     public $countryName = "RU";
+    /**
+     * Название страны
+     *
+     * Пример: Russia
+     * @var string
+     */
     public $stateOrProvinceName = "Russia";
+    /**
+     * Название населенного пункта
+     *
+     * Пример: Moscow
+     * @var string
+     */
     public $localityName;
+    /**
+     * Название организации (латинскими буквами)
+     *
+     * Пример: OOO Predpriyatie
+     * @var string
+     */
     public $organizationName;
+    /**
+     * Название подразделения
+     * @var string
+     */
     public $organizationalUnitName;
+    /**
+     * Общее название организации
+     *
+     * /business/ — обязательная часть этого параметра, ее менять не нужно.
+     * После нее могут следовать любые латинские буквы без пробелов. Например, название вашей компании латиницей
+     * Пример: /business/predpriyatie
+     *
+     * @var string
+     */
     public $commonName;
+    /**
+     * Контактный email
+     *
+     * Пример: predpriyatie@example.com
+     * @var string
+     */
     public $emailAddress;
 
+    /**
+     * Organization constructor.
+     * @param array|null $organizationInfo Массив данных организации
+     */
     public function __construct($organizationInfo = null)
     {
         if ($organizationInfo) {
@@ -64,7 +103,8 @@ class Organization
     }
 
     /**
-     * @param string $countryName
+     * Устанавливает код страны
+     * @param string $countryName Код страны
      * @return Organization
      */
     public function setCountryName($countryName = "RU")
@@ -91,7 +131,8 @@ class Organization
     }
 
     /**
-     * @return string
+     * Возвращает код страны
+     * @return string Код страны
      */
     public function getCountryName()
     {
@@ -99,7 +140,8 @@ class Organization
     }
 
     /**
-     * @param string $stateOrProvinceName
+     * Устанавливает название страны
+     * @param string $stateOrProvinceName Название страны
      * @return Organization
      */
     public function setStateOrProvinceName($stateOrProvinceName = "Russia")
@@ -118,7 +160,8 @@ class Organization
     }
 
     /**
-     * @return string
+     * Возвращает название страны
+     * @return string Название страны
      */
     public function getStateOrProvinceName()
     {
@@ -126,7 +169,8 @@ class Organization
     }
 
     /**
-     * @param string $localityName
+     * Устанавливает название населенного пункта
+     * @param string $localityName Название населенного пункта
      * @return Organization
      */
     public function setLocalityName($localityName)
@@ -145,7 +189,8 @@ class Organization
     }
 
     /**
-     * @return string
+     * Возвращает название населенного пункта
+     * @return string Название населенного пункта
      */
     public function getLocalityName()
     {
@@ -153,7 +198,8 @@ class Organization
     }
 
     /**
-     * @param mixed $organizationName
+     * Устанавливает название организации
+     * @param string $organizationName Название организации
      * @return Organization
      */
     public function setOrganizationName($organizationName)
@@ -172,7 +218,8 @@ class Organization
     }
 
     /**
-     * @return string
+     * Возвращает название организации
+     * @return string Название организации
      */
     public function getOrganizationName()
     {
@@ -180,7 +227,8 @@ class Organization
     }
 
     /**
-     * @param string $organizationalUnitName
+     * Устанавливает название подразделения
+     * @param string $organizationalUnitName Название подразделения
      * @return Organization
      */
     public function setOrganizationalUnitName($organizationalUnitName)
@@ -199,7 +247,8 @@ class Organization
     }
 
     /**
-     * @return string
+     * Возвращает название подразделения
+     * @return string Название подразделения
      */
     public function getOrganizationalUnitName()
     {
@@ -207,7 +256,8 @@ class Organization
     }
 
     /**
-     * @param mixed $commonName
+     * Устанавливает общее название организации
+     * @param string $commonName Общее название организации
      * @return Organization
      */
     public function setCommonName($commonName)
@@ -233,7 +283,8 @@ class Organization
     }
 
     /**
-     * @return string
+     * Возвращает общее название организации
+     * @return string Общее название организации
      */
     public function getCommonName()
     {
@@ -241,7 +292,8 @@ class Organization
     }
 
     /**
-     * @param mixed $emailAddress
+     * Устанавливает контактный email
+     * @param string $emailAddress Контактный email
      * @return Organization
      */
     public function setEmailAddress($emailAddress)
@@ -253,7 +305,7 @@ class Organization
                 'emailAddress',
                 $emailAddress
             );
-        } elseif (strpos((string)$emailAddress, '@') === FALSE) {
+        } elseif (strpos((string)$emailAddress, '@') === false) {
             throw new InvalidPropertyValueException(
                 'Invalid emailAddress value',
                 0,
@@ -267,13 +319,19 @@ class Organization
     }
 
     /**
-     * @return string
+     * Возвращает контактный email
+     * @return string Контактный email
      */
     public function getEmailAddress()
     {
         return $this->emailAddress;
     }
 
+    /**
+     * Заполняет свойства объекта из массива
+     * @param array $options Массив данных организации
+     * @return $this
+     */
     public function buildByArray($options)
     {
         foreach ($options as $option => $value) {
@@ -286,6 +344,10 @@ class Organization
         return $this;
     }
 
+    /**
+     * Преобразует объект в массив
+     * @return array Массив данных организации
+     */
     public function toArray()
     {
         $decodeArr = json_decode(json_encode($this), true);
@@ -300,6 +362,11 @@ class Organization
         return $result;
     }
 
+    /**
+     * Возвращает название сеттера для свойства объекта
+     * @param string $option Название свойства
+     * @return string Название метода
+     */
     private function getMethodName($option)
     {
         $strParts = explode('_', $option);

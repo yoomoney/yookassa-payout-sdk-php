@@ -30,15 +30,18 @@ namespace YooKassaPayout\Request\Serializers;
 use YooKassaPayout\Request\AbstractRequest;
 
 /**
- * Class AbstractRequestSerializer
+ * Абстрактный класс для преобразования запроса в массив
  *
- * @package YooKassaPayout\Request\Serializers
+ * @package YooKassaPayout
  */
 abstract class AbstractRequestSerializer
 {
     /**
-     * @param AbstractRequest $request
-     * @return array
+     * Формирует массив из запроса
+     *
+     * @param AbstractRequest $request Запрос
+     *
+     * @return array Массив параметров
      */
     public function serialize(AbstractRequest $request)
     {

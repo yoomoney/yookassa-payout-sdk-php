@@ -32,7 +32,7 @@ use Exception;
 /**
  * Класс хэлпер для преобразования типов значений
  *
- * @package YooKassaPayout\Common\Helpers
+ * @package YooKassaPayout
  */
 class TypeCast
 {
@@ -90,7 +90,7 @@ class TypeCast
      * Преобразует переданне значение в объект типа \DateTime
      * @param string|int|DateTime $value Преобразуемое значение
      * @return DateTime|null Объект типа \DateTime или null если при парсинг даты не удался
-     * @throws Exception
+     * @throws Exception Выбрасывается, если произошла ошибка работы с датой
      */
     public static function castToDateTime($value)
     {

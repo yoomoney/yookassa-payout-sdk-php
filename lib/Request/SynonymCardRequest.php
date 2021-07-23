@@ -36,31 +36,26 @@ use YooKassaPayout\Request\Serializers\SynonymCardRequestSerializer;
 /**
  * Класс для создания запроса на получение синонима карты
  *
- * @example
- * <code>
- *  <?php
- *      $synonymRequest = new SynonymCardRequest();
- *      $synonymRequest->setSkrDestinationCardNumber('5555555555554444')
- *                     ->setSkrErrorUrl('https://yoomoney.ru')
- *                     ->setSkrSuccessUrl('https://yoomoney.ru');
- *      $client->getSynonymCard($synonymRequest);
- * </code>
+ * @example 01-client.php 18 9 Получение синонима карты
  *
  * @package YooKassaPayout\Request
  */
 class SynonymCardRequest
 {
     /**
+     * Формат ответа на запрос - json
      * @const string
      */
     const FORMAT_JSON = 'json';
 
     /**
+     * Формат ответа на запрос - redirect
      * @const string
      */
     const FORMAT_REDIRECT = 'redirect';
 
     /**
+     * Список поддерживаемых форматов ответа
      * @var array
      */
     private static $validResponseFormats = [
@@ -68,21 +63,25 @@ class SynonymCardRequest
         self::FORMAT_REDIRECT,
     ];
     /**
+     * Номер банковской карты
      * @var string
      */
     protected $skrDestinationCardNumber;
 
     /**
+     * Формат ответа на запрос
      * @var string
      */
     protected $skrResponseFormat = self::FORMAT_JSON;
 
     /**
+     * Адрес для перенаправления при ошибке
      * @var string
      */
     protected $skrErrorUrl;
 
     /**
+     * Адрес для перенаправления при успехе
      * @var string
      */
     protected $skrSuccessUrl;
@@ -99,7 +98,8 @@ class SynonymCardRequest
     }
 
     /**
-     * @param string $skrDestinationCardNumber
+     * Устанавливает номер банковской карты
+     * @param string $skrDestinationCardNumber Номер банковской карты
      * @return $this
      */
     public function setSkrDestinationCardNumber($skrDestinationCardNumber)
@@ -117,7 +117,8 @@ class SynonymCardRequest
     }
 
     /**
-     * @return string
+     * Возвращает номер банковской карты
+     * @return string Номер банковской карты
      */
     public function getSkrDestinationCardNumber()
     {
@@ -125,7 +126,8 @@ class SynonymCardRequest
     }
 
     /**
-     * @param string $skrResponseFormat
+     * Устанавливает формат ответа на запрос
+     * @param string $skrResponseFormat Формат ответа на запрос
      * @return SynonymCardRequest
      */
     public function setSkrResponseFormat($skrResponseFormat = self::FORMAT_JSON)
@@ -143,7 +145,8 @@ class SynonymCardRequest
     }
 
     /**
-     * @return string
+     * Возвращает формат ответа на запрос
+     * @return string Формат ответа на запрос
      */
     public function getSkrResponseFormat()
     {
@@ -151,7 +154,8 @@ class SynonymCardRequest
     }
 
     /**
-     * @param string $skrErrorUrl
+     * Устанавливает адрес для перенаправления при ошибке
+     * @param string $skrErrorUrl Адрес для перенаправления при ошибке
      * @return SynonymCardRequest
      */
     public function setSkrErrorUrl($skrErrorUrl)
@@ -164,7 +168,8 @@ class SynonymCardRequest
     }
 
     /**
-     * @return string
+     * Возвращает адрес для перенаправления при ошибке
+     * @return string Адрес для перенаправления при ошибке
      */
     public function getSkrErrorUrl()
     {
@@ -172,7 +177,8 @@ class SynonymCardRequest
     }
 
     /**
-     * @param string $skrSuccessUrl
+     * Устанавливает адрес для перенаправления при успехе
+     * @param string $skrSuccessUrl Адрес для перенаправления при успехе
      * @return SynonymCardRequest
      */
     public function setSkrSuccessUrl($skrSuccessUrl)
@@ -185,7 +191,8 @@ class SynonymCardRequest
     }
 
     /**
-     * @return string
+     * Возвращает адрес для перенаправления при успехе
+     * @return string Адрес для перенаправления при успехе
      */
     public function getSkrSuccessUrl()
     {
@@ -193,7 +200,8 @@ class SynonymCardRequest
     }
 
     /**
-     * @return SynonymCardRequestSerializer
+     * Возвращает объект для преобразования запроса SynonymCardRequest в массив
+     * @return SynonymCardRequestSerializer Объект для преобразования запроса SynonymCardRequest в массив
      */
     public function getSerializer()
     {
@@ -201,7 +209,8 @@ class SynonymCardRequest
     }
 
     /**
-     * @return SynonymCardRequestBuilder
+     * Возвращает объект для сборки запроса SynonymCardRequest из массива
+     * @return SynonymCardRequestBuilder Объект для сборки запроса SynonymCardRequest из массива
      */
     public static function getBuilder()
     {
@@ -209,7 +218,8 @@ class SynonymCardRequest
     }
 
     /**
-     * @return array
+     * Возвращает список поддерживаемых форматов ответа
+     * @return array Список поддерживаемых форматов ответа
      */
     private function getValidResponseFormats()
     {

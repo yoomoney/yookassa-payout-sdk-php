@@ -33,25 +33,34 @@ use YooKassaPayout\Common\Helpers\TypeCast;
 /**
  * Класс ключница
  *
- * @package YooKassaPayout\Request
+ * @package YooKassaPayout
  */
 class Keychain
 {
     /**
+     * Путь к публичному сертификату
      * @var string
      */
     protected $publicCert;
 
     /**
+     * Путь к закрытому ключу
      * @var string
      */
     protected $privateKey;
 
     /**
+     * Пароль закрытого ключа
      * @var string
      */
     protected $keyPassword;
 
+    /**
+     * Keychain constructor.
+     * @param string $publicCert Путь к публичному сертификату
+     * @param string $privateKey Путь к закрытому ключу
+     * @param string $keyPassword Пароль закрытого ключа
+     */
     public function __construct($publicCert, $privateKey, $keyPassword = '')
     {
         $this->setPublicCert($publicCert);
@@ -60,7 +69,8 @@ class Keychain
     }
 
     /**
-     * @return string
+     * Возвращает путь к публичному сертификату
+     * @return string Путь к публичному сертификату
      */
     public function getPublicCert()
     {
@@ -68,7 +78,8 @@ class Keychain
     }
 
     /**
-     * @param string $publicCert
+     * Устанавливает путь к публичному сертификату
+     * @param string $publicCert Путь к публичному сертификату
      * @return Keychain
      */
     public function setPublicCert($publicCert)
@@ -86,7 +97,8 @@ class Keychain
     }
 
     /**
-     * @return string
+     * Возвращает путь к закрытому ключу
+     * @return string Путь к закрытому ключу
      */
     public function getPrivateKey()
     {
@@ -94,7 +106,8 @@ class Keychain
     }
 
     /**
-     * @param string $privateKey
+     * Устанавливает путь к закрытому ключу
+     * @param string $privateKey Путь к закрытому ключу
      * @return Keychain
      */
     public function setPrivateKey($privateKey)
@@ -112,7 +125,8 @@ class Keychain
     }
 
     /**
-     * @return string
+     * Возвращает пароль закрытого ключа
+     * @return string Пароль закрытого ключа
      */
     public function getKeyPassword()
     {
@@ -120,7 +134,8 @@ class Keychain
     }
 
     /**
-     * @param string $keyPassword
+     * Устанавливает пароль закрытого ключа
+     * @param string $keyPassword Пароль закрытого ключа
      * @return Keychain
      */
     public function setKeyPassword($keyPassword)

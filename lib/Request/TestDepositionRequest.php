@@ -32,29 +32,21 @@ use YooKassaPayout\Request\Builders\TestDepositionRequestBuilder;
 /**
  * Класс для создания запроса на проверку возможности выплаты
  *
- * @example
- * <code>
- *  <?php
- *     $depositionRequest = new MakeDepositionRequest();
- *      $depositionRequest->setDstAccount('41001614575714')
- *                        ->setAmount(100)
- *                        ->setCurrency(CurrencyCode::RUB)
- *                        ->setContract('test')
- *                        ->setPaymentParams($params);
- * </code>
+ * @example 04-deposition.php 10 16 Запрос на проверку возможности выплаты
  *
  * @package YooKassaPayout\Request
  */
 class TestDepositionRequest extends AbstractDepositionRequest
 {
     /**
-     * @var string
+     * @inheritdoc
      */
     protected $requestName = 'testDeposition';
 
     /**
-     * @param null|string|int $clientOrderId
-     * @return TestDepositionRequestBuilder
+     * Возвращает объект для сборки запроса TestDepositionRequest из массива
+     * @param null|string|int $clientOrderId Идентификатор операции
+     * @return TestDepositionRequestBuilder Объект для сборки запроса TestDepositionRequest из массива
      */
     public static function getBuilder($clientOrderId = null)
     {
