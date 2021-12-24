@@ -77,7 +77,7 @@ $client  = new YooKassaPayout\Client('250000', $keychain);
 Текущая версия SDK
 
 ```php
-SDK_VERSION = '2.2.2'
+SDK_VERSION = '2.2.3'
 ```
 
 
@@ -699,6 +699,6 @@ protected setRequestUrl(string $requestUrl) : mixed
 
 ---
 
-This document was automatically generated from source code comments on 2021-07-23 using [phpDocumentor](http://www.phpdoc.org/)
+This document was automatically generated from source code comments on 2021-12-24 using [phpDocumentor](http://www.phpdoc.org/)
 
 &copy; 2021 YooMoney
