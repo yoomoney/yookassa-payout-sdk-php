@@ -6,6 +6,8 @@
 [![Monthly Downloads](https://poser.pugx.org/yoomoney/yookassa-payout-sdk-php/d/monthly)](https://packagist.org/packages/yoomoney/yookassa-payout-sdk-php)
 [![License](https://poser.pugx.org/yoomoney/yookassa-payout-sdk-php/license)](https://packagist.org/packages/yoomoney/yookassa-payout-sdk-php)
 
+Russian | [English](README.en.md)
+
 Клиент для работы по [Протоколу массовых выплат](https://yookassa.ru/docs/payouts/api/using-api/basics)
 
 ## Возможности
@@ -45,27 +47,27 @@ composer require yoomoney/yookassa-payout-sdk-php
 ```bash
 composer update
 ```
-3. В коде вашего проекта подключите автозагрузку файлов SDK ЮKassa:
+3. В коде вашего проекта подключите автозагрузку файлов SDK Payout API ЮKassa:
 ```php
 require __DIR__ . '/vendor/autoload.php';
 ```
 
 ### Вручную
 1. Скачайте архив [YooKassa Payout API PHP Client Library](https://github.com/yoomoney/yookassa-payout-sdk-php/archive/master.zip), распакуйте его и скопируйте каталог lib в папку вашего проекта, где будет размещен SDK.
-2. В коде вашего проекта подключите автозагрузку файлов SDK ЮKassa:
+2. В коде вашего проекта подключите автозагрузку файлов SDK Payout API ЮKassa:
 ```php
 require __DIR__ . '/lib/autoload.php'; 
 ```
 
-## Примеры использования SDK Payout API
+## Примеры использования SDK Payout API ЮKassa
 
-#### [Настройки SDK Payout API ЮKassa](https://github.com/yoomoney/yookassa-payout-sdk-php/blob/master/docs/examples/01-configuration.md)
-* [Получение сертификата для аутентификации запросов](https://github.com/yoomoney/yookassa-payout-sdk-php/blob/master/docs/examples/01-configuration.md#Получение-сертификата-для-аутентификации-запросов)
-* [Запрос баланса](https://github.com/yoomoney/yookassa-payout-sdk-php/blob/master/docs/examples/01-configuration.md#Запрос-баланса)
+#### [Настройки SDK Payout API ЮKassa](docs/examples/01-configuration.md)
+* [Получение сертификата для аутентификации запросов](docs/examples/01-configuration.md#Получение-сертификата-для-аутентификации-запросов)
+* [Запрос баланса](docs/examples/01-configuration.md#Запрос-баланса)
 
-#### [Зачисление переводов](https://github.com/yoomoney/yookassa-payout-sdk-php/blob/master/docs/examples/02-depositions.md)
-* [Проверка возможности зачислений](https://github.com/yoomoney/yookassa-payout-sdk-php/blob/master/docs/examples/02-depositions.md#Проверка-возможности-зачислений)
-* [Зачисление на банковскую карту](https://github.com/yoomoney/yookassa-payout-sdk-php/blob/master/docs/examples/02-depositions.md#Зачисление-на-банковскую-карту)
-* [Зачисление переводов на банковский счет](https://github.com/yoomoney/yookassa-payout-sdk-php/blob/master/docs/examples/02-depositions.md#Зачисление-переводов-на-банковский-счет)
+#### [Зачисление переводов](docs/examples/02-depositions.md)
+* [Проверка возможности зачислений](docs/examples/02-depositions.md#Проверка-возможности-зачислений)
+* [Зачисление на банковскую карту](docs/examples/02-depositions.md#Зачисление-на-банковскую-карту)
+* [Зачисление переводов на банковский счет](docs/examples/02-depositions.md#Зачисление-переводов-на-банковский-счет)
 
-#### [Уведомление о неуспешном переводе](https://github.com/yoomoney/yookassa-payout-sdk-php/blob/master/docs/examples/03-notifications.md)
+#### [Уведомление о неуспешном переводе](docs/examples/03-notifications.md)
