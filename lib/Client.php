@@ -63,7 +63,7 @@ class Client extends CurlClient
     /**
      * Текущая версия SDK
      */
-    const SDK_VERSION = '2.2.3';
+    const SDK_VERSION = '2.2.4';
 
     /**
      * Корневой URL API
