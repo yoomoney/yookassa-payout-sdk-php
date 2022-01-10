@@ -11,13 +11,13 @@
             "email": "cms@yoomoney.ru"
         }
     ],
-    "version": "2.2.3",
+    "version": "2.2.4",
     "require": {
         "php": ">=5.6.0",
         "ext-curl": "*",
         "ext-json": "*",
         "ext-simplexml": "*",
-        "psr/log": "^1.0",
+        "psr/log": "^1.0 || ^2.0 || ^3.0",
         "ext-mbstring": "*",
         "ext-openssl": "*",
         "ext-libxml": "*"
