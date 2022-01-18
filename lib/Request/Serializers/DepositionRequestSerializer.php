@@ -51,6 +51,7 @@ class DepositionRequestSerializer extends AbstractRequestSerializer
         $result = [
             'dstAccount'    => $request->getDstAccount(),
             'amount'        => $request->getAmount(),
+            'itn'           => $request->getItn(),
             'currency'      => $request->getCurrency(),
             'contract'      => $request->getContract(),
         ];
