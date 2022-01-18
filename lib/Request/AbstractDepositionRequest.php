@@ -47,12 +47,6 @@ abstract class AbstractDepositionRequest extends AbstractRequest
      * @var string
      */
     protected $dstAccount;
-    
-    /**
-     * ИНН самозанятого
-     * @var string
-     */
-    protected $itn;
 
     /**
      * Сумма перевода
@@ -113,35 +107,6 @@ abstract class AbstractDepositionRequest extends AbstractRequest
     public function getDstAccount()
     {
         return $this->dstAccount;
-    }
-    
-     /**
-     * Устанавливает ИНН самозанятого
-     * @param string|int $value Идентификатор получателя перевода
-     * @return AbstractDepositionRequest
-     */
-    public function setItn($value)
-    {
-        if (!TypeCast::canCastToString($value)) {
-            throw new InvalidPropertyValueTypeException('Invalid itn value type', 0, 'itn', $value);
-        } elseif (empty($value)) {
-            throw new EmptyPropertyValueException('Empty itn value', 0, 'itn');
-        } elseif (!is_numeric((string)$value)) {
-            throw new InvalidPropertyValueTypeException('The ITN can only contain numbers.', 0, 'itn', $value);
-        }
-
-        $this->itn = $value;
-
-        return $this;
-    }
-
-    /**
-     * Возвращает ИНН самозанятого
-     * @return string ИНН самозанятого
-     */
-    public function getItn()
-    {
-        return $this->itn;
     }
 
     /**
