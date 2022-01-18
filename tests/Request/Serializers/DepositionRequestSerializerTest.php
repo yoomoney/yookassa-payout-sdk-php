@@ -18,6 +18,7 @@ class DepositionRequestSerializerTest extends TestCase
         $instance = new MakeDepositionRequest();
         $instance->setClientOrderId(12)
                 ->setDstAccount(55555512)
+                ->setItn(123456789000)
                 ->setAmount(3.239124)
                 ->setContract('cms contract plus edition');
 
@@ -25,6 +26,7 @@ class DepositionRequestSerializerTest extends TestCase
             'clientOrderId' => '12',
             'requestDT'     => $instance->getRequestDT(),
             'dstAccount'    => '55555512',
+            'itn'           => '123456789000',
             'amount'        => '3.24',
             'currency'      => (string)CurrencyCode::RUB,
             'contract'      => 'cms contract plus edition',

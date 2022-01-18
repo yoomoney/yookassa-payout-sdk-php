@@ -23,6 +23,17 @@ class MakeDepositionRequestTest extends TestCase
     }
 
     /**
+     * @param $itn
+     * @dataProvider validItnProvider
+     */
+    public function testSetItn($itn)
+    {
+        $instance = new MakeDepositionRequest();
+        $instance->setItn($itn);
+        $this->assertEquals((string)$itn, $instance->getItn());
+    }
+
+    /**
      * @param $amount
      * @param $exceptParameter
      * @dataProvider validAmount
@@ -137,6 +148,18 @@ class MakeDepositionRequestTest extends TestCase
             [5454],
             ['gfgfdgdfgfdgdfg'],
             [new StringObject('123gfgf')],
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function validItnProvider()
+    {
+        return [
+            ['123456789000'],
+            [123456789000],
+            [new StringObject('123456789000')],
         ];
     }
 }

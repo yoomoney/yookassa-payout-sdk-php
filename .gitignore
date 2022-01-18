@@ -2,6 +2,7 @@
 vendor
 output
 lsp
+build
 composer.lock
 *.cer
 !deposit.cer
