@@ -27,6 +27,7 @@
 namespace YooKassaPayout\Request;
 
 use YooKassaPayout\Common\Exceptions\EmptyPropertyValueException;
+use YooKassaPayout\Common\Exceptions\InvalidPropertyValueException;
 use YooKassaPayout\Common\Exceptions\InvalidPropertyValueTypeException;
 use YooKassaPayout\Common\Helpers\TypeCast;
 use YooKassaPayout\Model\CurrencyCode;
@@ -47,6 +48,12 @@ abstract class AbstractDepositionRequest extends AbstractRequest
      * @var string
      */
     protected $dstAccount;
+
+    /**
+     * ИНН самозанятого
+     * @var string
+     */
+    protected $itn;
 
     /**
      * Сумма перевода
@@ -110,6 +117,43 @@ abstract class AbstractDepositionRequest extends AbstractRequest
     }
 
     /**
+     * Устанавливает ИНН самозанятого
+     * @param string|int $value ИНН самозанятого
+     * @return AbstractDepositionRequest
+     */
+    public function setItn($value)
+    {
+        if (empty($value)) {
+            throw new EmptyPropertyValueException('Empty itn value', 0, 'itn');
+        } elseif (!is_numeric((string)$value)) {
+            throw new InvalidPropertyValueTypeException('Invalid itn value type', 0, 'itn', $value);
+        } elseif (strlen((string)$value) != 12) {
+            throw new InvalidPropertyValueException('Invalid itn value: "' . $value . '"', 0, 'itn');
+        }
+        $this->itn = (string)$value;
+
+        return $this;
+    }
+
+    /**
+     * Возвращает ИНН самозанятого
+     * @return string ИНН самозанятого
+     */
+    public function getItn()
+    {
+        return $this->itn;
+    }
+
+    /**
+     * Возвращает флаг наличия ИНН самозанятого
+     * @return bool Наличие ИНН самозанятого
+     */
+    public function hasItn()
+    {
+        return !empty($this->itn);
+    }
+
+    /**
      * Устанавливает сумму перевода
      * @param numeric $value Сумма перевода
      * @return $this
@@ -170,7 +214,7 @@ abstract class AbstractDepositionRequest extends AbstractRequest
     public function setContract($value)
     {
         if (!TypeCast::canCastToString($value)) {
-            throw new InvalidPropertyValueTypeException('Invalid contract value type', 0, 'dstAccount', $value);
+            throw new InvalidPropertyValueTypeException('Invalid contract value type', 0, 'contract', $value);
         }
 
         $this->contract = (string)$value;

@@ -55,6 +55,10 @@ class DepositionRequestSerializer extends AbstractRequestSerializer
             'contract'      => $request->getContract(),
         ];
 
+        if ($request->hasItn()) {
+            $result['itn'] = $request->getItn();
+        }
+
         if ($request->hasPaymentParams()) {
             $result['paymentParams'] = $this->serializePaymentParams($request->getPaymentParams());
         }

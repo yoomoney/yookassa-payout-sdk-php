@@ -79,6 +79,17 @@ class ResponseXmlObject
      * @var string
      */
     protected $identification;
+    /**
+     * Поле содержит идентификатор чека в сервисе
+     * @var string
+     */
+    protected $incomeReceiptId;
+    /**
+     * Поле содержит ссылку на зарегистрированный чек
+     * @var string
+     */
+    protected $incomeReceiptLink;
+
 
     /**
      * ResponseXmlObject constructor.
@@ -165,5 +176,23 @@ class ResponseXmlObject
     public function getTechMessage()
     {
         return $this->techMessage;
+    }
+
+    /**
+     * Возвращает идентификатор чека в сервисе
+     * @return string Идентификатор чека в сервисе
+     */
+    public function getIncomeReceiptId()
+    {
+        return $this->incomeReceiptId;
+    }
+
+    /**
+     * Возвращает ссылку на зарегистрированный чек
+     * @return string Ссылка на зарегистрированный чек
+     */
+    public function getIncomeReceiptLink()
+    {
+        return $this->incomeReceiptLink;
     }
 }

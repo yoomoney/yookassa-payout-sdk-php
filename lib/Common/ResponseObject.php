@@ -120,7 +120,7 @@ class ResponseObject
     }
 
     /**
-     * Проверяет является ли содержимое $data пакетом PKCS#7
+     * Проверяет, является ли содержимое $data пакетом PKCS#7
      * @param string $data Тело ответа
      * @return bool
      */
